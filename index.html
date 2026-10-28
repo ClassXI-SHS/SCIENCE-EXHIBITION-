@@ -245,6 +245,7 @@
 
     // ==========================================
     // 30 SCENARIO-BASED BILINGUAL QUESTION BANK
+    // (Correct answers evenly distributed across A, B, C, and D)
     // ==========================================
     const questionBank = [
       {
@@ -256,7 +257,7 @@
           en: ["Share the OTP to help them out", "Ignore and never share any OTP with anyone", "Share only half the OTP digits", "Ask for money before sending OTP"],
           hi: ["मदद के लिए OTP भेज दें", "मैसेज को नजरअंदाज करें और कभी किसी को OTP न दें", "केवल आधे अंक ही बताएं", "OTP भेजने के बदले पैसे मांगें"]
         },
-        answer: 1
+        answer: 1 // B
       },
       {
         q: {
@@ -264,10 +265,10 @@
           hi: "रेलवे स्टेशन या एयरपोर्ट पर मुफ्त USB चार्जिंग स्टेशन है। क्या अपना फोन सीधे USB केबल से चार्ज करना सुरक्षित है?"
         },
         options: {
-          en: ["Yes, USB cables only transmit power, not data", "No, hackers can steal data or install malware through public USB ports (Juice Jacking)", "Yes, if your phone screen is turned off", "Yes, as long as charging is fast"],
-          hi: ["हां, USB केवल बिजली देता है, डेटा नहीं लेता", "नहीं, हैकर्स पब्लिक USB पोर्ट्स से डेटा चुरा सकते हैं (Juice Jacking)", "हां, अगर फोन स्क्रीन लॉक हो", "हां, जब तक चार्जिंग तेज हो रही है"]
+          en: ["Yes, USB cables only transmit power, not data", "Yes, if your phone screen is turned off", "No, hackers can steal data or install malware through public USB ports (Juice Jacking)", "Yes, as long as charging is fast"],
+          hi: ["हां, USB केवल बिजली देता है, डेटा नहीं लेता", "हां, अगर फोन स्क्रीन लॉक हो", "नहीं, हैकर्स पब्लिक USB पोर्ट्स से डेटा चुरा सकते हैं (Juice Jacking)", "हां, जब तक चार्जिंग तेज हो रही है"]
         },
-        answer: 1
+        answer: 2 // C
       },
       {
         q: {
@@ -275,21 +276,21 @@
           hi: "आपको मैसेज आता है कि आपका पार्सल रुका हुआ है, ₹10 फीस देने और कार्ड डिटेल्स भरने के लिए लिंक पर क्लिक करें। यह क्या है?"
         },
         options: {
-          en: ["A genuine courier service update", "A fake phishing scam designed to steal your card details", "A discount offer on shipping", "A routine survey"],
-          hi: ["सच्चा कूरियर अपडेट", "कार्ड की जानकारी चुराने वाला नकली फ़िशिंग घोटाला", "शिपिंग पर छूट का ऑफर", "एक सामान्य सर्वे"]
+          en: ["A genuine courier service update", "A discount offer on shipping", "A routine feedback survey", "A fake phishing scam designed to steal your card details"],
+          hi: ["सच्चा कूरियर अपडेट", "शिपिंग पर छूट का ऑफर", "एक सामान्य सर्वे फीडबैक", "कार्ड की जानकारी चुराने वाला नकली फ़िशिंग घोटाला"]
         },
-        answer: 1
+        answer: 3 // D
       },
       {
         q: {
-          en: "A viral Facebook quiz promises to tell you 'Which Bollywood Celebrity You Look Like', but asks for access to your friends list and birthday. What should you do?",
+          en: "A viral Facebook quiz promises to tell you 'Which Celebrity You Look Like', but asks for access to your friends list and birthday. What should you do?",
           hi: "सोशल मीडिया पर एक वायरल क्विज़ है 'आप किस एक्टर जैसे दिखते हैं', पर यह आपके फ्रेंड्स लिस्ट और जन्मतिथि की अनुमति मांगता है। आप क्या करेंगे?"
         },
         options: {
-          en: ["Take the quiz immediately", "Avoid the quiz because it is collecting personal data for profiling", "Ask your friends to take it first", "Share your bank password as well"],
-          hi: ["तुरंत क्विज़ खेलेंगे", "क्विज़ से बचें क्योंकि यह आपकी पर्सनल जानकारी जुटा रहा है", "दोस्तों को पहले खेलने को कहेंगे", "बैंक पासवर्ड भी शेयर कर देंगे"]
+          en: ["Avoid the quiz because it collects personal data for profiling", "Take the quiz immediately", "Ask your friends to take it first", "Share your bank password as well"],
+          hi: ["क्विज़ से बचें क्योंकि यह आपकी पर्सनल जानकारी जुटा रहा है", "तुरंत क्विज़ खेलेंगे", "दोस्तों को पहले खेलने को कहेंगे", "बैंक पासवर्ड भी शेयर कर देंगे"]
         },
-        answer: 1
+        answer: 0 // A
       },
       {
         q: {
@@ -300,7 +301,7 @@
           en: ["Tell them the PIN immediately", "Hang up; banks NEVER ask for PIN, Password, or OTP over the phone", "Give them a fake PIN first", "Ask them to send an SMS instead"],
           hi: ["तुरंत पिन बता देंगे", "फोन काट देंगे; बैंक कभी भी फोन पर PIN, पासवर्ड या OTP नहीं मांगते", "गलत पिन बता देंगे", "मैसेज भेजने को कहेंगे"]
         },
-        answer: 1
+        answer: 1 // B
       },
       {
         q: {
@@ -308,10 +309,10 @@
           hi: "आप छुट्टियों पर जा रहे हैं और इंस्टाग्राम पर अपने हवाई जहाज के बोर्डिंग पास की फोटो पोस्ट कर रहे हैं। यह जोखिम भरा क्यों है?"
         },
         options: {
-          en: ["Boarding passes contain barcodes with your full passenger details and booking access", "It makes your photos look bad", "Instagram deletes flight photos automatically", "It consumes too much internet data"],
-          hi: ["बोर्डिंग पास के बारकोड में आपकी पर्सनल और बुकिंग डिटेल्स छिपी होती हैं", "इससे फोटो अच्छी नहीं दिखती", "इंस्टाग्राम ऐसी तस्वीरें हटा देता है", "इससे डेटा ज्यादा खत्म होता है"]
+          en: ["It consumes too much internet data", "It makes your photos look bad", "Boarding passes contain barcodes with your full passenger details and booking access", "Instagram deletes flight photos automatically"],
+          hi: ["इससे डेटा ज्यादा खत्म होता है", "इससे फोटो अच्छी नहीं दिखती", "बोर्डिंग पास के बारकोड में आपकी पर्सनल और बुकिंग डिटेल्स छिपी होती हैं", "इंस्टाग्राम ऐसी तस्वीरें हटा देता है"]
         },
-        answer: 0
+        answer: 2 // C
       },
       {
         q: {
@@ -319,10 +320,10 @@
           hi: "कॉफी शॉप में बैठे हुए अपने ऑनलाइन बैंक अकाउंट में लॉगिन करने का सबसे सुरक्षित तरीका क्या है?"
         },
         options: {
-          en: ["Use the free, password-less coffee shop Wi-Fi", "Use your mobile personal hotspot/cellular data", "Ask a stranger to share their hotspot", "Log in using the café's billing computer"],
-          hi: ["कॉफी शॉप का फ्री ओपन वाई-फाई इस्तेमाल करें", "अपने मोबाइल का पर्सनल डेटा/हॉटस्पॉट इस्तेमाल करें", "किसी अनजान व्यक्ति से वाई-फाई मांगें", "कैफे के बिलिंग कंप्यूटर से लॉगिन करें"]
+          en: ["Use the free, password-less coffee shop Wi-Fi", "Ask a stranger to share their hotspot", "Log in using the café's billing computer", "Use your mobile personal hotspot/cellular data"],
+          hi: ["कॉफी शॉप का फ्री ओपन वाई-फाई इस्तेमाल करें", "किसी अनजान व्यक्ति से वाई-फाई मांगें", "कैफे के बिलिंग कंप्यूटर से लॉगिन करें", "अपने मोबाइल का पर्सनल डेटा/हॉटस्पॉट इस्तेमाल करें"]
         },
-        answer: 1
+        answer: 3 // D
       },
       {
         q: {
@@ -330,10 +331,10 @@
           hi: "आपकी ईमेल आईडी के लिए इनमें से कौन सा पासवर्ड सबसे मजबूत और सुरक्षित है?"
         },
         options: {
-          en: ["Rahul1234", "12345678", "Tr$5#k9!PqL@2026", "password2026"],
-          hi: ["Rahul1234", "12345678", "Tr$5#k9!PqL@2026", "password2026"]
+          en: ["Tr$5#k9!PqL@2026", "Rahul1234", "12345678", "password2026"],
+          hi: ["Tr$5#k9!PqL@2026", "Rahul1234", "12345678", "password2026"]
         },
-        answer: 2
+        answer: 0 // A
       },
       {
         q: {
@@ -344,7 +345,7 @@
           en: ["Allow all permissions easily", "Deny permissions or uninstall the app, as a flashlight does not need contacts or SMS", "Allow only SMS reading", "Share your location as well"],
           hi: ["सभी परमिशन दे देंगे", "परमिशन देने से मना करें या ऐप हटा दें, टॉर्च को कॉन्टैक्ट्स की जरूरत नहीं होती", "केवल मैसेज की परमिशन देंगे", "लोकेशन भी शेयर कर देंगे"]
         },
-        answer: 1
+        answer: 1 // B
       },
       {
         q: {
@@ -352,10 +353,10 @@
           hi: "ऑनलाइन अकाउंट्स बनाते समय टू-फैक्टर ऑथेंटिकेशन (2FA) ऑन करने की सलाह क्यों दी जाती है?"
         },
         options: {
-          en: ["It requires an extra security step (like a phone code) even if someone knows your password", "It automatically changes your profile picture", "It speeds up your internet download speed", "It eliminates the need for passwords entirely"],
-          hi: ["पासवर्ड पता होने पर भी लॉग इन के लिए फोन पर आए कोड की अतिरिक्त सुरक्षा मिलती है", "यह प्रोफाइल फोटो बदल देता है", "यह इंटरनेट स्पीड बढ़ा देता है", "इससे पासवर्ड की जरूरत ही नहीं रहती"]
+          en: ["It automatically changes your profile picture", "It speeds up your internet download speed", "It requires an extra security step (like a phone code) even if someone knows your password", "It eliminates the need for passwords entirely"],
+          hi: ["यह प्रोफाइल फोटो बदल देता है", "यह इंटरनेट स्पीड बढ़ा देता है", "पासवर्ड पता होने पर भी लॉग इन के लिए फोन पर आए कोड की अतिरिक्त सुरक्षा मिलती है", "इससे पासवर्ड की जरूरत ही नहीं रहती"]
         },
-        answer: 0
+        answer: 2 // C
       },
       {
         q: {
@@ -363,10 +364,10 @@
           hi: "आप अपना पुराना मोबाइल बेच रहे हैं। खरीदार को फोन देने से पहले आपको क्या करना आवश्यक है?"
         },
         options: {
-          en: ["Simply delete phone call history", "Perform a full Factory Data Reset and remove linked accounts", "Remove the back cover only", "Turn off Wi-Fi"],
-          hi: ["केवल कॉल हिस्ट्री डिलीट करें", "फोन को पूरी तरह फ़ैक्टरी रीसेट (Factory Reset) करें और अकाउंट्स हटाएं", "केवल फोन कवर निकालें", "वाई-फाई बंद कर दें"]
+          en: ["Simply delete phone call history", "Remove the back cover only", "Turn off Wi-Fi", "Perform a full Factory Data Reset and remove linked accounts"],
+          hi: ["केवल कॉल हिस्ट्री डिलीट करें", "केवल फोन कवर निकालें", "वाई-फाई बंद कर दें", "फोन को पूरी तरह फ़ैक्टरी रीसेट (Factory Reset) करें और अकाउंट्स हटाएं"]
         },
-        answer: 1
+        answer: 3 // D
       },
       {
         q: {
@@ -374,10 +375,10 @@
           hi: "'support@paypa1-security.com' से ईमेल आया है कि 2 घंटे में अकाउंट बंद हो जाएगा। आपको किस बात पर ध्यान देना चाहिए?"
         },
         options: {
-          en: ["The sender email has a typo ('paypa1' instead of 'paypal'), indicating a phishing scam", "It seems urgent so click the link immediately", "Reply with your secret security questions", "Forward it to your relatives"],
+          en: ["The sender email has a typo ('paypa1' instead of 'paypal'), indicating a phishing scam", "Click the link immediately because it is urgent", "Reply with your secret security questions", "Forward it to your relatives"],
           hi: ["ईमेल आईडी में गलती है ('paypal' की जगह 'paypa1'), जो एक फर्जी ठगी का इशारा है", "जल्दी में तुरंत लिंक पर क्लिक करेंगे", "सिक्योरिटी सवालों का जवाब देंगे", "रिश्तेदारों को फॉरवर्ड करेंगे"]
         },
-        answer: 0
+        answer: 0 // A
       },
       {
         q: {
@@ -388,7 +389,7 @@
           en: ["Paper wears out quickly", "If your wallet is stolen, the thief instantly gets full access to withdraw your funds", "It violates bank paper conservation rules", "It makes the wallet heavy"],
           hi: ["कागज जल्दी फट जाता है", "अगर वॉलेट चोरी हुआ, तो चोर तुरंत आपके पैसे निकाल सकता है", "बैंक के नियमों के खिलाफ है", "इससे बटुआ भारी होता है"]
         },
-        answer: 1
+        answer: 1 // B
       },
       {
         q: {
@@ -396,10 +397,10 @@
           hi: "अगर आपकी कंप्यूटर स्क्रीन पर अचानक मैसेज आए कि फोटो अनलॉक करने के लिए $200 मांगें गए हैं (Ransomware), तो क्या करना चाहिए?"
         },
         options: {
-          en: ["Pay the money immediately", "Contact a professional cybersecurity expert/cyber cell and never pay extortionists", "Send them more photos", "Restart the screen 100 times"],
-          hi: ["तुरंत पैसे दे देंगे", "साइबर एक्सपर्ट/साइबर सेल से संपर्क करें और कभी फिरौती न दें", "उन्हें और फोटोज भेजेंगे", "स्क्रीन को 100 बार रीस्टार्ट करेंगे"]
+          en: ["Pay the money immediately", "Send them more photos", "Contact a professional cybersecurity expert/cyber cell and never pay extortionists", "Restart the screen 100 times"],
+          hi: ["तुरंत पैसे दे देंगे", "उन्हें और फोटोज भेजेंगे", "साइबर एक्सपर्ट/साइबर सेल से संपर्क करें और कभी फिरौती न दें", "स्क्रीन को 100 बार रीस्टार्ट करेंगे"]
         },
-        answer: 1
+        answer: 2 // C
       },
       {
         q: {
@@ -407,10 +408,10 @@
           hi: "क्या अपने डेस्कटॉप पर 'MyPasswords.txt' नाम की फाइल में बैंक पासवर्ड लिखकर रखना सुरक्षित है?"
         },
         options: {
-          en: ["Yes, desktop files are completely invisible", "No, anyone with physical or remote malware access can read it easily", "Yes, as long as the file is hidden in a folder", "Yes, if the text font size is small"],
-          hi: ["हां, डेस्कटॉप फाइलें किसी को नहीं दिखतीं", "नहीं, कंप्यूटर में वायरस आने पर कोई भी पासवर्ड पढ़ सकता है", "हां, अगर फाइल किसी फोल्डर के अंदर हो", "हां, अगर टेक्स्ट का साइज छोटा हो"]
+          en: ["Yes, desktop files are completely invisible", "Yes, as long as the file is hidden in a folder", "Yes, if the text font size is small", "No, anyone with physical or remote malware access can read it easily"],
+          hi: ["हां, डेस्कटॉप फाइलें किसी को नहीं दिखतीं", "हां, अगर फाइल किसी फोल्डर के अंदर हो", "हां, अगर टेक्स्ट का साइज छोटा हो", "नहीं, कंप्यूटर में वायरस आने पर कोई भी पासवर्ड पढ़ सकता है"]
         },
-        answer: 1
+        answer: 3 // D
       },
       {
         q: {
@@ -418,10 +419,10 @@
           hi: "सड़क के खंभे पर क्यूआर कोड चिपका है 'स्कैन करें और तुरंत ₹5,000 पाएं'। इसे स्कैन करते समय क्या ध्यान रखना चाहिए?"
         },
         options: {
-          en: ["Scanning a QR code can only receive money, never deduct", "QR codes can direct you to dangerous phishing links or request UPI PIN to DEDUCT money", "It is guaranteed money from the government", "It charges your phone battery"],
-          hi: ["QR कोड से केवल पैसे मिलते हैं, कटते नहीं", "QR कोड फर्जी वेबसाइट पर ले जा सकता है या पैसे काटने के लिए UPI PIN मांग सकता है", "यह पक्का सरकारी इनाम है", "यह फोन चार्ज कर देगा"]
+          en: ["QR codes can direct you to dangerous phishing links or request UPI PIN to DEDUCT money", "Scanning a QR code can only receive money, never deduct", "It is guaranteed money from the government", "It charges your phone battery"],
+          hi: ["QR कोड फर्जी वेबसाइट पर ले जा सकता है या पैसे काटने के लिए UPI PIN मांग सकता है", "QR कोड से केवल पैसे मिलते हैं, कटते नहीं", "यह पक्का सरकारी इनाम है", "यह फोन चार्ज कर देगा"]
         },
-        answer: 1
+        answer: 0 // A
       },
       {
         q: {
@@ -432,7 +433,7 @@
           en: ["It receives money into your account", "It AUTHORIZES MONEY TO BE DEDUCTED from your bank account", "It checks your bank account balance for free", "It recharges your mobile talktime"],
           hi: ["खाते में पैसे प्राप्त करना", "आपके खाते से पैसे काटने की अनुमति देना (Money Deduct)", "फ्री में बैंक बैलेंस चेक करना", "मोबाइल रिचार्ज करना"]
         },
-        answer: 1
+        answer: 1 // B
       },
       {
         q: {
@@ -440,10 +441,10 @@
           hi: "लैपटॉप पर अचानक पॉप-अप आता है - 'आपका सिस्टम इन्फेक्टेड है! सफाई के लिए तुरंत इस टोल-फ्री नंबर पर कॉल करें।' यह क्या है?"
         },
         options: {
-          en: ["A genuine alert from Microsoft/Apple", "A fake Tech Support scam designed to gain remote control of your computer", "An offer for a free laptop upgrade", "An internet speed test"],
-          hi: ["कंपनी की ओर से सच्ची चेतावनी", "फर्जी टेक सपोर्ट घोटाला जो आपके कंप्यूटर का रिमोट कंट्रोल हथियाना चाहता है", "लैपटॉप अपग्रेड का ऑफर", "इंटरनेट स्पीड टेस्ट"]
+          en: ["A genuine alert from Microsoft/Apple", "An offer for a free laptop upgrade", "A fake Tech Support scam designed to gain remote control of your computer", "An internet speed test"],
+          hi: ["कंपनी की ओर से सच्ची चेतावनी", "लैपटॉप अपग्रेड का ऑफर", "फर्जी टेक सपोर्ट घोटाला जो आपके कंप्यूटर का रिमोट कंट्रोल हथियाना चाहता है", "इंटरनेट स्पीड टेस्ट"]
         },
-        answer: 1
+        answer: 2 // C
       },
       {
         q: {
@@ -451,10 +452,10 @@
           hi: "सोशल मीडिया पर अपना आधार कार्ड या नेशनल आईडी कार्ड सार्वजनिक रूप से शेयर करने का मुख्य जोखिम क्या है?"
         },
         options: {
-          en: ["Identity theft and unauthorized SIM or loan applications in your name", "Your photo might get low likes", "The image file takes up too much storage", "It automatically changes your address"],
-          hi: ["पहचान की चोरी (Identity Theft) और आपके नाम पर फर्जी सिम या लोन का दुरुपयोग", "फोटो पर कम लाइक्स मिलेंगे", "इमेज फाइल ज्यादा जगह घेरेगी", "आपका पता बदल जाएगा"]
+          en: ["Your photo might get low likes", "The image file takes up too much storage", "It automatically changes your address", "Identity theft and unauthorized SIM or loan applications in your name"],
+          hi: ["फोटो पर कम लाइक्स मिलेंगे", "इमेज फाइल ज्यादा जगह घेरेगी", "आपका पता बदल जाएगा", "पहचान की चोरी (Identity Theft) और आपके नाम पर फर्जी सिम या लोन का दुरुपयोग"]
         },
-        answer: 0
+        answer: 3 // D
       },
       {
         q: {
@@ -462,10 +463,10 @@
           hi: "व्हाट्सएप मैसेज आता है - 'फ्री 50GB इंटरनेट डेटा पाने के लिए इसे 10 ग्रुप्स में फॉरवर्ड करें।' आप क्या करेंगे?"
         },
         options: {
-          en: ["Forward it immediately to 10 groups", "Delete the message; it is a fake spam link collecting personal numbers", "Forward it to 5 groups first to test", "Reply asking for 100GB instead"],
-          hi: ["तुरंत 10 ग्रुप में भेजेंगे", "मैसेज डिलीट करें; यह पर्सनल नंबर जुटाने वाला फर्जी लिंक है", "पहले 5 ग्रुप में भेजकर चेक करेंगे", "100GB मांगने के लिए रिप्लाई करेंगे"]
+          en: ["Delete the message; it is a fake spam link collecting personal numbers", "Forward it immediately to 10 groups", "Forward it to 5 groups first to test", "Reply asking for 100GB instead"],
+          hi: ["मैसेज डिलीट करें; यह पर्सनल नंबर जुटाने वाला फर्जी लिंक है", "तुरंत 10 ग्रुप में भेजेंगे", "पहले 5 ग्रुप में भेजकर चेक करेंगे", "100GB मांगने के लिए रिप्लाई करेंगे"]
         },
-        answer: 1
+        answer: 0 // A
       },
       {
         q: {
@@ -473,10 +474,10 @@
           hi: "अपने व्हाट्सएप ऐप में फिंगरप्रिंट या पिन लॉक लगाना क्यों जरूरी है?"
         },
         options: {
-          en: ["To prevent friends or strangers who hold your unlocked phone from reading personal chats", "To increase chat typing speed", "To back up messages on Google Drive", "To make emojis look colorful"],
-          hi: ["ताकि फोन किसी के हाथ में जाने पर भी आपकी पर्सनल चैट कोई न पढ़ सके", "टाइपिंग स्पीड बढ़ाने के लिए", "गूगल ड्राइव पर बैकअप लेने के लिए", "इमोजी को सुंदर बनाने के लिए"]
+          en: ["To increase chat typing speed", "To prevent friends or strangers who hold your unlocked phone from reading personal chats", "To back up messages on Google Drive", "To make emojis look colorful"],
+          hi: ["टाइपिंग स्पीड बढ़ाने के लिए", "ताकि फोन किसी के हाथ में जाने पर भी आपकी पर्सनल चैट कोई न पढ़ सके", "गूगल ड्राइव पर बैकअप लेने के लिए", "इमोजी को सुंदर बनाने के लिए"]
         },
-        answer: 0
+        answer: 1 // B
       },
       {
         q: {
@@ -484,10 +485,10 @@
           hi: "'यूट्यूब वीडियो लाइक करके ₹5000 रोज कमाएं' - ऐसा वर्क फ्रॉम होम जॉब ऑफर आता है, पर ₹2000 रजिस्ट्रेशन फीस मांगते हैं। यह क्या है?"
         },
         options: {
-          en: ["A legitimate high-paying career opportunity", "A classic job scam; real employers never ask you to pay money to get hired", "A government employment scheme", "A YouTube official training program"],
-          hi: ["शानदार नौकरी का मौका", "क्लासिक जॉब स्कैम; असली कंपनियां कभी नौकरी देने के लिए पैसे नहीं मांगतीं", "सरकारी रोजगार योजना", "यूट्यूब की ट्रेनिंग ट्रिप"]
+          en: ["A legitimate high-paying career opportunity", "A government employment scheme", "A classic job scam; real employers never ask you to pay money to get hired", "A YouTube official training program"],
+          hi: ["शानदार नौकरी का मौका", "सरकारी रोजगार योजना", "क्लासिक जॉब स्कैम; असली कंपनियां कभी नौकरी देने के लिए पैसे नहीं मांगतीं", "यूट्यूब की ट्रेनिंग ट्रिप"]
         },
-        answer: 1
+        answer: 2 // C
       },
       {
         q: {
@@ -495,10 +496,10 @@
           hi: "यदि आपका मोबाइल फोन खो जाता है जिसमें UPI पेमेंट ऐप्स और बैंक खाते लिंक हैं, तो सबसे पहला कदम क्या होना चाहिए?"
         },
         options: {
-          en: ["Wait 10 days to see if someone returns it", "Immediately block your SIM card and report to your bank to block UPI services", "Buy a new phone case", "Send an email to the phone manufacturer"],
-          hi: ["10 दिन इंतजार करेंगे", "तुरंत अपना सिम कार्ड ब्लॉक कराएं और बैंक में कॉल करके UPI सेवाएं बंद कराएं", "नया फोन कवर खरीदेंगे", "कंपनी को ईमेल करेंगे"]
+          en: ["Wait 10 days to see if someone returns it", "Buy a new phone case", "Send an email to the phone manufacturer", "Immediately block your SIM card and report to your bank to block UPI services"],
+          hi: ["10 दिन इंतजार करेंगे", "नया फोन कवर खरीदेंगे", "कंपनी को ईमेल करेंगे", "तुरंत अपना सिम कार्ड ब्लॉक कराएं और बैंक में कॉल करके UPI सेवाएं बंद कराएं"]
         },
-        answer: 1
+        answer: 3 // D
       },
       {
         q: {
@@ -506,10 +507,10 @@
           hi: "ऑनलाइन शॉपिंग करते समय, कौन सा वेबसाइट एड्रेस दिखाता है कि पेमेंट पेज सुरक्षित है?"
         },
         options: {
-          en: ["http://shop-online-deals.com", "https://www.trusted-shop.com (starts with HTTPS)", "ftp://shopping-cart.org", "www.shop-cheap.net"],
-          hi: ["http://shop-online-deals.com", "https://www.trusted-shop.com (HTTPS से शुरू)", "ftp://shopping-cart.org", "www.shop-cheap.net"]
+          en: ["https://www.trusted-shop.com (starts with HTTPS)", "http://shop-online-deals.com", "ftp://shopping-cart.org", "www.shop-cheap.net"],
+          hi: ["https://www.trusted-shop.com (HTTPS से शुरू)", "http://shop-online-deals.com", "ftp://shopping-cart.org", "www.shop-cheap.net"]
         },
-        answer: 1
+        answer: 0 // A
       },
       {
         q: {
@@ -517,10 +518,10 @@
           hi: "अपने स्मार्टफोन, टैबलेट या स्मार्ट डिवाइस पर स्क्रीन लॉक (PIN/पैटर्न) लगाना क्यों जरूरी है?"
         },
         options: {
-          en: ["It protects stored personal photos, emails, and financial apps from unauthorized eyes", "It cleans dust off the screen", "It improves TV sound quality", "It increases internal storage capacity"],
-          hi: ["यह आपकी पर्सनल फोटो, ईमेल और पेमेंट ऐप्स को दूसरों की पहुंच से सुरक्षित रखता है", "यह स्क्रीन की धूल साफ करता है", "यह आवाज साफ करता है", "यह स्टोरेज बढ़ाता है"]
+          en: ["It cleans dust off the screen", "It protects stored personal photos, emails, and financial apps from unauthorized eyes", "It improves TV sound quality", "It increases internal storage capacity"],
+          hi: ["यह स्क्रीन की धूल साफ करता है", "यह आपकी पर्सनल फोटो, ईमेल और पेमेंट ऐप्स को दूसरों की पहुंच से सुरक्षित रखता है", "यह आवाज साफ करता है", "यह स्टोरेज बढ़ाता है"]
         },
-        answer: 0
+        answer: 1 // B
       },
       {
         q: {
@@ -528,10 +529,10 @@
           hi: "नया सोशल मीडिया अकाउंट बनाते समय, आपका फोन नंबर और घर का पता किसे दिखना चाहिए?"
         },
         options: {
-          en: ["Everyone on the Internet (Public)", "Only You / Private (Hidden from public profiles)", "All strangers in your city", "Advertisers only"],
-          hi: ["इंटरनेट पर सभी को (Public)", "केवल आपको / प्राइवेट (प्रोफाइल पर छुपा हुआ)", "शहर के सभी अनजान लोगों को", "विज्ञापनदाताओं को"]
+          en: ["Everyone on the Internet (Public)", "All strangers in your city", "Only You / Private (Hidden from public profiles)", "Advertisers only"],
+          hi: ["इंटरनेट पर सभी को (Public)", "शहर के सभी अनजान लोगों को", "केवल आपको / प्राइवेट (प्रोफाइल पर छुपा हुआ)", "विज्ञापनदाताओं को"]
         },
-        answer: 1
+        answer: 2 // C
       },
       {
         q: {
@@ -539,10 +540,10 @@
           hi: "मैसेज आता है: 'प्रिय ग्राहक, बिजली बिल जमा न होने के कारण आज रात 9 बजे बिजली काट दी जाएगी। इस नंबर पर तुरंत संपर्क करें।' आप क्या करेंगे?"
         },
         options: {
-          en: ["Call the unknown number in panic and pay money immediately", "Verify your bill directly through official electricity department website/app", "Turn off all lights at home", "Forward to your neighbors"],
-          hi: ["घबराकर उस अनजान नंबर पर कॉल करेंगे और पैसे देंगे", "आधिकारिक बिजली बोर्ड ऐप/वेबसाइट से बिल चेक करेंगे", "घर की लाइट बंद कर देंगे", "पड़ोसियों को मैसेज भेजेंगे"]
+          en: ["Call the unknown number in panic and pay money immediately", "Turn off all lights at home", "Forward to your neighbors", "Verify your bill directly through official electricity department website/app"],
+          hi: ["घबराकर उस अनजान नंबर पर कॉल करेंगे और पैसे देंगे", "घर की लाइट बंद कर देंगे", "पड़ोसियों को मैसेज भेजेंगे", "आधिकारिक बिजली बोर्ड ऐप/वेबसाइट से बिल चेक करेंगे"]
         },
-        answer: 1
+        answer: 3 // D
       },
       {
         q: {
@@ -550,10 +551,10 @@
           hi: "आजकल इस्तेमाल हो रही 'पासकी (Passkey)' तकनीक क्या है?"
         },
         options: {
-          en: ["A physical metal key for your laptop", "A modern secure login method using your device fingerprint/face lock instead of typing passwords", "A master password printed on your router", "A password written on paper"],
-          hi: ["लैपटॉप की लोहे की चाबी", "पासवर्ड टाइप करने के बजाय आपके फिंगरप्रिंट या फेस लॉक से लॉगिन करने का सुरक्षित तरीका", "राउटर के पीछे लिखा पासवर्ड", "कागज पर लिखा पासवर्ड"]
+          en: ["A modern secure login method using your device fingerprint/face lock instead of typing passwords", "A physical metal key for your laptop", "A master password printed on your router", "A password written on paper"],
+          hi: ["पासवर्ड टाइप करने के बजाय आपके फिंगरप्रिंट या फेस लॉक से लॉगिन करने का सुरक्षित तरीका", "लैपटॉप की लोहे की चाबी", "राउटर के पीछे लिखा पासवर्ड", "कागज पर लिखा पासवर्ड"]
         },
-        answer: 1
+        answer: 0 // A
       },
       {
         q: {
@@ -561,10 +562,10 @@
           hi: "अनजान मैसेज में आए छोटे लिंक (जैसे bit.ly/xxx) पर तुरंत क्लिक क्यों नहीं करना चाहिए?"
         },
         options: {
-          en: ["They hide the real destination address, which could lead to a harmful website", "Short links consume more battery", "They slow down screen brightness", "They delete your phone contacts"],
-          hi: ["वे असली वेबसाइट का नाम छुपाते हैं, जो किसी खतरनाक या नकली साइट पर ले जा सकता है", "छोटे लिंक से बैटरी खत्म होती है", "वे स्क्रीन की रोशनी कम करते हैं", "वे कॉन्टैक्ट्स डिलीट करते हैं"]
+          en: ["Short links consume more battery", "They hide the real destination address, which could lead to a harmful website", "They slow down screen brightness", "They delete your phone contacts"],
+          hi: ["छोटे लिंक से बैटरी खत्म होती है", "वे असली वेबसाइट का नाम छुपाते हैं, जो किसी खतरनाक या नकली साइट पर ले जा सकता है", "वे स्क्रीन की रोशनी कम करते हैं", "वे कॉन्टैक्ट्स डिलीट करते हैं"]
         },
-        answer: 0
+        answer: 1 // B
       },
       {
         q: {
@@ -572,10 +573,10 @@
           hi: "यदि आप किसी साइबर वित्तीय धोखाधड़ी (Cyber Fraud) के शिकार होते हैं, तो आधिकारिक हेल्पलाइन नंबर या पोर्टल क्या है?"
         },
         options: {
-          en: ["1930 / cybercrime.gov.in", "100 / 112 for general emergency only", "108 for ambulance", "1800-000-000"],
-          hi: ["1930 / cybercrime.gov.in", "100 / 112 केवल सामान्य आपातकाल के लिए", "108 एम्बुलेंस के लिए", "1800-000-000"]
+          en: ["100 / 112 for general emergency only", "108 for ambulance", "1930 / cybercrime.gov.in", "1800-000-000"],
+          hi: ["100 / 112 केवल सामान्य आपातकाल के लिए", "108 एम्बुलेंस के लिए", "1930 / cybercrime.gov.in", "1800-000-000"]
         },
-        answer: 0
+        answer: 2 // C
       }
     ];
 
