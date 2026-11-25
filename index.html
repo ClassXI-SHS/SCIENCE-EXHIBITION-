@@ -1,895 +1,1451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Privacy Awareness Quiz / डेटा प्राइवेसी जागरूकता क्विज़</title>
-  <!-- Tailwind CSS CDN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sacred Heart School - Data Privacy Awareness Quiz</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts: Inter & Playfair Display for Certificate -->
-  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
-  
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
     body {
-      font-family: 'Inter', 'Hind', sans-serif;
+      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(135deg, #07193b 0%, #0a2351 55%, #1e40af 100%);
+      min-height: 100vh;
     }
-    .cert-font-serif {
-      font-family: 'Playfair Display', Georgia, serif;
+
+    .serif-title {
+      font-family: 'Cinzel', serif;
     }
+
     .fade-in {
-      animation: fadeIn 0.4s ease-in-out forwards;
+      animation: fadeIn 0.35s ease-out forwards;
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    .option-card {
+      transition: all 0.18s ease;
+    }
+
+    .option-card:hover:not(:disabled) {
+      transform: translateX(4px);
+      border-color: #1d4ed8;
+      background-color: #eff6ff;
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+<body class="flex items-center justify-center p-4 text-slate-800">
 
-  <!-- Main Container -->
-  <main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
-    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden fade-in">
-      
-      <!-- HEADER BAR -->
-      <header class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 p-6 text-white text-center relative">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 mb-3 backdrop-blur-sm">
-          <i class="fa-solid fa-shield-halved text-2xl text-blue-200"></i>
+  <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-blue-200">
+    <!-- Top Header Banner -->
+    <div class="bg-[#0a2351] px-6 py-4 flex items-center justify-between border-b-4 border-[#d4af37]">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-white p-0.5 flex items-center justify-center overflow-hidden shadow-md border-2 border-[#d4af37]">
+          <img
+            id="header-logo"
+            src="./logo.jpg"
+            alt="Sacred Heart School Logo"
+            class="w-full h-full object-contain rounded-full"
+            onerror="handleHeaderLogoError(this)"
+          />
+          <span id="header-logo-fallback" class="hidden text-[#0a2351] font-bold text-xs serif-title">SHS</span>
         </div>
-        <h1 id="ui-title" class="text-2xl sm:text-3xl font-bold tracking-tight">Data Privacy Awareness Quiz</h1>
-        <p id="ui-subtitle" class="text-blue-100 text-xs sm:text-sm mt-1 max-w-md mx-auto">Learn how to protect your personal information online in everyday life</p>
-      </header>
-
-      <!-- CARD CONTENT CONTAINER -->
-      <div class="p-6 sm:p-8">
-        
-        <!-- STEP 1: REGISTRATION & LANGUAGE SELECT -->
-        <div id="screen-start" class="space-y-6">
-          
-          <!-- Language Selection -->
-          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 flex items-center justify-between">
-            <label for="language-select" class="text-xs sm:text-sm font-semibold text-slate-700 flex items-center gap-2">
-              <i class="fa-solid fa-globe text-blue-600"></i>
-              <span id="ui-lang-label">Select Language / भाषा चुनें:</span>
-            </label>
-            <select id="language-select" onchange="changeLanguage(this.value)" class="bg-white border border-slate-300 text-slate-800 font-semibold text-xs sm:text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer">
-              <option value="en">English</option>
-              <option value="hi">हिंदी (Hindi)</option>
-            </select>
-          </div>
-
-          <div class="bg-blue-50/60 rounded-xl p-4 border border-blue-100 text-slate-700 text-sm space-y-2">
-            <div class="font-semibold text-blue-900 flex items-center gap-2">
-              <i class="fa-solid fa-circle-info text-blue-600"></i>
-              <span id="ui-instructions-title">Quiz Instructions</span>
-            </div>
-            <ul class="list-disc list-inside space-y-1 text-slate-600 text-xs sm:text-sm pl-1">
-              <li id="ui-inst-1"><strong>10 real-life scenario questions</strong> will be asked.</li>
-              <li id="ui-inst-2">Score <strong>≥ 80% (8/10)</strong> to receive an <strong>Achievement Certificate</strong>.</li>
-              <li id="ui-inst-3">All participants receive a <strong>Participation Certificate</strong> upon completion.</li>
-            </ul>
-          </div>
-
-          <form id="start-form" onsubmit="handleStartQuiz(event)" class="space-y-4">
-            <div>
-              <label for="participant-name" id="ui-name-label" class="block text-sm font-semibold text-slate-700 mb-1">
-                Your Full Name <span class="text-rose-500">*</span>
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <i class="fa-solid fa-user"></i>
-                </div>
-                <input 
-                  type="text" 
-                  id="participant-name" 
-                  required 
-                  placeholder="e.g. Alex Morgan / राहुल शर्मा" 
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white text-slate-800 transition"
-                >
-              </div>
-            </div>
-
-            <button 
-              type="submit" 
-              class="w-full py-3.5 px-6 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-base cursor-pointer"
-            >
-              <span id="ui-start-btn">Begin Quiz</span>
-              <i class="fa-solid fa-arrow-right text-sm"></i>
-            </button>
-          </form>
+        <div>
+          <p class="text-[#d4af37] text-xs font-bold tracking-widest uppercase">Sacred Heart School</p>
+          <h1 id="header-title" class="text-white font-bold text-base sm:text-lg leading-tight">
+            Data Privacy Awareness Quiz
+          </h1>
         </div>
-
-        <!-- STEP 2: QUIZ SCREEN -->
-        <div id="screen-quiz" class="hidden space-y-6">
-          <!-- Progress Header -->
-          <div class="flex items-center justify-between text-xs sm:text-sm text-slate-500 font-medium pb-2 border-b border-slate-100">
-            <span id="quiz-progress-text">Question 1 of 10</span>
-            <span class="text-blue-600 font-semibold" id="ui-badge">Digital Safety</span>
-          </div>
-
-          <!-- Progress Bar -->
-          <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-            <div id="quiz-progress-bar" class="bg-blue-600 h-full w-10 transition-all duration-300"></div>
-          </div>
-
-          <!-- Question Box -->
-          <div class="space-y-4">
-            <h2 id="question-text" class="text-lg sm:text-xl font-bold text-slate-900 leading-snug">
-              Loading question...
-            </h2>
-
-            <!-- Options List -->
-            <div id="options-container" class="space-y-2.5 pt-2">
-              <!-- Options injected dynamically -->
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 3: RESULT SCREEN -->
-        <div id="screen-result" class="hidden space-y-6 text-center fade-in">
-          
-          <div id="result-header-box" class="space-y-2">
-            <div id="result-icon-container" class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mb-1">
-              <i class="fa-solid fa-award text-3xl"></i>
-            </div>
-            <h2 id="result-title" class="text-2xl font-bold text-slate-900">Quiz Completed!</h2>
-            <p id="result-summary-text" class="text-slate-600 text-sm max-w-md mx-auto">
-              Your score: <strong>8/10</strong>
-            </p>
-          </div>
-
-          <!-- Canvas Certificate Preview -->
-          <div class="bg-slate-100 p-2 sm:p-3 rounded-xl border border-slate-200 shadow-inner">
-            <canvas id="certCanvas" width="800" height="560" class="w-full h-auto rounded-lg bg-white shadow-sm"></canvas>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="flex flex-col sm:flex-row gap-3">
-            <button 
-              onclick="downloadCertificate()" 
-              class="flex-1 py-3 px-5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-semibold rounded-lg shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <i class="fa-solid fa-download"></i>
-              <span id="ui-download-btn">Download Certificate</span>
-            </button>
-            <button 
-              onclick="restartQuiz()" 
-              class="py-3 px-5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg transition flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <i class="fa-solid fa-rotate-right"></i>
-              <span id="ui-retry-btn">Try Again</span>
-            </button>
-          </div>
-
-        </div>
-
       </div>
 
-      <!-- FOOTER -->
-      <footer class="bg-slate-50 border-t border-slate-100 p-4 text-center text-xs text-slate-400">
-        Data Privacy Awareness Campaign &copy; <span id="year">2026</span>
-      </footer>
-
+      <!-- Language Toggle -->
+      <div class="flex bg-[#061533] p-1 rounded-lg border border-blue-800">
+        <button
+          type="button"
+          id="btn-lang-en"
+          onclick="setLanguage('en')"
+          class="px-3 py-1 rounded-md text-xs font-semibold transition bg-[#1d4ed8] text-white"
+        >
+          English
+        </button>
+        <button
+          type="button"
+          id="btn-lang-hi"
+          onclick="setLanguage('hi')"
+          class="px-3 py-1 rounded-md text-xs font-semibold transition text-blue-200 hover:text-white"
+        >
+          हिंदी
+        </button>
+      </div>
     </div>
-  </main>
+
+    <!-- SCREEN 1: WELCOME & NAME INPUT -->
+    <div id="screen-welcome" class="p-6 sm:p-8 fade-in">
+      <div class="text-center mb-6">
+        <span id="badge-subtitle" class="inline-block px-3 py-1 rounded-full bg-blue-50 text-[#1d4ed8] text-xs font-bold uppercase tracking-wider mb-2 border border-blue-200">
+          Digital Safety Initiative
+        </span>
+        <h2 id="welcome-heading" class="text-2xl sm:text-3xl font-extrabold text-[#0a2351] mb-2">
+          Test Your Cyber & Data Privacy Smarts
+        </h2>
+        <p id="welcome-desc" class="text-slate-600 text-sm sm:text-base max-w-lg mx-auto">
+          Answer 10 real-life scenario questions to learn how to protect your personal data, UPI, and accounts. Score 80% or above to earn a Certificate of Achievement!
+        </p>
+      </div>
+
+      <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4 mb-6 grid grid-cols-3 gap-3 text-center">
+        <div>
+          <p class="text-lg sm:text-xl font-bold text-[#0a2351]">10</p>
+          <p id="stat-questions" class="text-xs text-slate-600 font-medium">Random Questions</p>
+        </div>
+        <div class="border-x border-blue-200">
+          <p class="text-lg sm:text-xl font-bold text-[#1d4ed8]">≥ 80%</p>
+          <p id="stat-pass" class="text-xs text-slate-600 font-medium">Achievement Score</p>
+        </div>
+        <div>
+          <p class="text-lg sm:text-xl font-bold text-[#0a2351]">Instant</p>
+          <p id="stat-cert" class="text-xs text-slate-600 font-medium">School Certificate</p>
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label id="label-name" for="participant-name" class="block text-sm font-bold text-[#0a2351] mb-2">
+          Enter Your Full Name (for Certificate):
+        </label>
+        <input
+          type="text"
+          id="participant-name"
+          placeholder="e.g., Aarav Sharma"
+          class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-[#1d4ed8] focus:outline-none text-slate-800 font-medium text-base transition"
+          oninput="clearNameError()"
+        />
+        <p id="name-error" class="hidden text-red-600 text-xs font-semibold mt-1.5">
+          Please enter your full name before starting the quiz.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        id="btn-start"
+        onclick="startQuiz()"
+        class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#0a2351] to-[#1d4ed8] hover:from-[#081b3f] hover:to-[#1e40af] text-white font-bold text-base shadow-lg shadow-blue-900/20 transition transform active:scale-[0.99] cursor-pointer"
+      >
+        Begin Quiz →
+      </button>
+    </div>
+
+    <!-- SCREEN 2: QUIZ QUESTIONS -->
+    <div id="screen-quiz" class="hidden p-6 sm:p-8 fade-in">
+      <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+        <span id="progress-label">Question 1 of 10</span>
+        <span id="score-tracker" class="text-[#1d4ed8]">Sacred Heart School</span>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-6 border border-slate-200">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-[#0a2351] to-[#1d4ed8] transition-all duration-300" style="width: 10%;"></div>
+      </div>
+
+      <h3 id="question-text" class="text-lg sm:text-xl font-bold text-[#0a2351] mb-5 leading-snug">
+        Question text appears here
+      </h3>
+
+      <div id="options-list" class="space-y-3 mb-6">
+        <!-- Options injected dynamically -->
+      </div>
+
+      <div class="flex justify-end">
+        <button
+          type="button"
+          id="btn-next"
+          onclick="nextQuestion()"
+          disabled
+          class="px-6 py-3 rounded-xl bg-[#1d4ed8] disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold text-sm shadow transition cursor-pointer"
+        >
+          Next Question →
+        </button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: RESULTS & CERTIFICATE -->
+    <div id="screen-result" class="hidden p-6 sm:p-8 fade-in">
+      <div class="text-center mb-6">
+        <div id="result-badge-pill" class="inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-2 bg-blue-100 text-[#0a2351]">
+          Certificate Earned
+        </div>
+        <h2 id="result-heading" class="text-2xl sm:text-3xl font-extrabold text-[#0a2351]">
+          Congratulations!
+        </h2>
+        <p id="result-summary" class="text-slate-600 text-sm sm:text-base mt-1">
+          You scored 8 out of 10 (80%).
+        </p>
+      </div>
+
+      <!-- Canvas Certificate Preview -->
+      <div class="bg-slate-100 p-2 sm:p-3 rounded-xl border border-slate-300 shadow-inner mb-6">
+        <canvas id="certificate-canvas" width="1200" height="850" class="w-full h-auto rounded-lg shadow-md bg-white"></canvas>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button
+          type="button"
+          id="btn-download"
+          onclick="downloadCertificate()"
+          class="flex-1 py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#0a2351] to-[#1d4ed8] hover:from-[#081b3f] hover:to-[#1e40af] text-white font-bold text-sm sm:text-base shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          <span id="btn-download-text">Download Certificate (PNG)</span>
+        </button>
+
+        <button
+          type="button"
+          id="btn-restart"
+          onclick="restartQuiz()"
+          class="py-3.5 px-6 rounded-xl border-2 border-slate-300 hover:border-[#0a2351] text-slate-700 hover:text-[#0a2351] font-bold text-sm sm:text-base transition cursor-pointer"
+        >
+          Retake Quiz
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // ==========================================
-    // UI TRANSLATIONS (English / Hindi)
+    // 1. LOGO PRELOADER (From Same Folder)
     // ==========================================
-    const i18n = {
+    let loadedLogoImg = null;
+    const logoCandidates = ["./logo.jpg", "./logo.png", "./Logo.jpg", "./Logo.png"];
+    let logoAttemptIdx = 0;
+
+    function preloadSchoolLogo() {
+      if (logoAttemptIdx >= logoCandidates.length) return;
+      const img = new Image();
+      img.onload = function () {
+        loadedLogoImg = img;
+        const headerImg = document.getElementById("header-logo");
+        const fallback = document.getElementById("header-logo-fallback");
+        if (headerImg) {
+          headerImg.src = img.src;
+          headerImg.classList.remove("hidden");
+        }
+        if (fallback) fallback.classList.add("hidden");
+        // Redraw certificate if already on result screen
+        if (!document.getElementById("screen-result").classList.contains("hidden")) {
+          drawCertificate();
+        }
+      };
+      img.onerror = function () {
+        logoAttemptIdx++;
+        preloadSchoolLogo();
+      };
+      img.src = logoCandidates[logoAttemptIdx];
+    }
+
+    function handleHeaderLogoError(imgEl) {
+      if (loadedLogoImg) {
+        imgEl.src = loadedLogoImg.src;
+      } else {
+        imgEl.classList.add("hidden");
+        document.getElementById("header-logo-fallback").classList.remove("hidden");
+      }
+    }
+
+    preloadSchoolLogo();
+
+    // ==========================================
+    // 2. BILINGUAL UI STRINGS
+    // ==========================================
+    let currentLang = "en";
+
+    const uiText = {
       en: {
-        title: "Data Privacy Awareness Quiz",
-        subtitle: "Learn how to protect your personal information online in everyday life",
-        langLabel: "Select Language:",
-        instructionsTitle: "Quiz Instructions",
-        inst1: "<strong>10 real-life scenario questions</strong> will be asked.",
-        inst2: "Score <strong>≥ 80% (8/10)</strong> to receive an <strong>Achievement Certificate</strong>.",
-        inst3: "All participants receive a <strong>Participation Certificate</strong> upon completion.",
-        nameLabel: "Your Full Name",
-        namePlaceholder: "e.g. Alex Morgan / Rahul Sharma",
-        startBtn: "Begin Quiz",
-        badge: "Digital Safety",
-        progressText: (curr, total) => `Question ${curr} of ${total}`,
-        downloadBtn: "Download Certificate",
-        retryBtn: "Try Again",
-        passTitle: "Excellent Work!",
-        passSummary: (name, score) => `<span class="font-semibold text-slate-800">${name}</span>, you scored <span class="font-bold text-emerald-600">${score}/10</span>! You have earned a Certificate of Achievement!`,
-        partTitle: "Thank You for Participating!",
-        partSummary: (name, score) => `<span class="font-semibold text-slate-800">${name}</span>, you scored <span class="font-bold text-blue-600">${score}/10</span>. Here is your Certificate of Participation!`,
-        certAchievementTitle: "CERTIFICATE OF ACHIEVEMENT",
-        certParticipationTitle: "CERTIFICATE OF PARTICIPATION",
-        certAwardedTo: "This certificate is proudly awarded to",
-        certAchievementDesc: (score) => `for demonstrating exceptional awareness in Data Privacy & Digital Safety with a score of ${score}/10 (${score * 10}%).`,
-        certParticipationDesc: (score) => `for successfully participating in the Data Privacy Awareness Campaign and demonstrating commitment to digital safety.`,
-        certIssuedOn: "Issued on:",
-        certVerified: "Privacy Officer",
-        certPassedBadge: "ACHIEVEMENT",
-        certPartBadge: "PARTICIPANT"
+        headerTitle: "Data Privacy Awareness Quiz",
+        badgeSubtitle: "Digital Safety Initiative",
+        welcomeHeading: "Test Your Cyber & Data Privacy Smarts",
+        welcomeDesc: "Answer 10 real-life scenario questions to learn how to protect your personal data, UPI, and accounts. Score 80% or above to earn a Certificate of Achievement!",
+        statQuestions: "Random Questions",
+        statPass: "Achievement Score",
+        statCert: "School Certificate",
+        labelName: "Enter Your Full Name (for Certificate):",
+        placeholderName: "e.g., Aarav Sharma",
+        nameError: "Please enter your full name before starting the quiz.",
+        btnStart: "Begin Quiz →",
+        progressLabel: (curr, total) => `Question ${curr} of ${total}`,
+        btnNext: "Next Question →",
+        btnSubmit: "Finish & View Certificate →",
+        achievementPill: "Certificate of Achievement (≥ 80%)",
+        participationPill: "Certificate of Participation",
+        resultHeadingWin: "Outstanding Awareness!",
+        resultHeadingPart: "Thank You for Participating!",
+        resultSummary: (name, score, total, pct) => `${name}, you scored ${score} out of ${total} (${pct}%).`,
+        btnDownload: "Download Certificate (PNG)",
+        btnRestart: "Retake Quiz"
       },
       hi: {
-        title: "डेटा प्राइवेसी जागरूकता क्विज़",
-        subtitle: "दैनिक जीवन में अपनी व्यक्तिगत जानकारी की सुरक्षा करना सीखें",
-        langLabel: "भाषा चुनें:",
-        instructionsTitle: "क्विज़ निर्देश",
-        inst1: "<strong>10 वास्तविक जीवन से जुड़े प्रश्न</strong> पूछे जाएंगे।",
-        inst2: "<strong>≥ 80% (8/10)</strong> अंक लाने पर <strong>उपलब्धि प्रमाण पत्र (Achievement Certificate)</strong> मिलेगा।",
-        inst3: "सभी प्रतिभागियों को <strong>भागीदारी प्रमाण पत्र (Participation Certificate)</strong> प्रदान किया जाएगा।",
-        nameLabel: "आपका पूरा नाम",
-        namePlaceholder: "उदाहरण: राहुल शर्मा / प्रियंका वर्मा",
-        startBtn: "क्विज़ शुरू करें",
-        badge: "डिजिटल सुरक्षा",
-        progressText: (curr, total) => `प्रश्न ${curr} / ${total}`,
-        downloadBtn: "प्रमाण पत्र डाउनलोड करें",
-        retryBtn: "पुनः प्रयास करें",
-        passTitle: "शानदार प्रदर्शन!",
-        passSummary: (name, score) => `<span class="font-semibold text-slate-800">${name}</span>, आपने <span class="font-bold text-emerald-600">${score}/10</span> अंक प्राप्त किए! आपने उपलब्धि प्रमाण पत्र अर्जित किया है!`,
-        partTitle: "भागीदारी के लिए धन्यवाद!",
-        partSummary: (name, score) => `<span class="font-semibold text-slate-800">${name}</span>, आपने <span class="font-bold text-blue-600">${score}/10</span> अंक प्राप्त किए। यह आपका भागीदारी प्रमाण पत्र है!`,
-        certAchievementTitle: "उपलब्धि प्रमाण पत्र (CERTIFICATE OF ACHIEVEMENT)",
-        certParticipationTitle: "भागीदारी प्रमाण पत्र (CERTIFICATE OF PARTICIPATION)",
-        certAwardedTo: "यह प्रमाण पत्र गर्व के साथ प्रदान किया जाता है",
-        certAchievementDesc: (score) => `डेटा प्राइवेसी एवं डिजिटल सुरक्षा जागरूकता में ${score}/10 (${score * 10}%) अंक प्राप्त कर उत्कृष्ट प्रदर्शन करने के लिए।`,
-        certParticipationDesc: (score) => `डेटा प्राइवेसी जागरूकता अभियान में सफलतापूर्वक भाग लेने और डिजिटल सुरक्षा के प्रति प्रतिबद्धता दिखाने के लिए।`,
-        certIssuedOn: "जारी तिथि:",
-        certVerified: "प्राइवेसी अधिकारी",
-        certPassedBadge: "उत्कृष्टता",
-        certPartBadge: "प्रतिभागी"
+        headerTitle: "डेटा गोपनीयता जागरूकता प्रश्नोत्तरी",
+        badgeSubtitle: "डिजिटल सुरक्षा पहल",
+        welcomeHeading: "अपनी साइबर और डेटा सुरक्षा समझ को परखें",
+        welcomeDesc: "अपने व्यक्तिगत डेटा, UPI और खातों को सुरक्षित रखने के लिए 10 व्यावहारिक प्रश्नों के उत्तर दें। 80% या अधिक अंक प्राप्त करें और उपलब्धि प्रमाण पत्र (Certificate of Achievement) पाएं!",
+        statQuestions: "रैंडम प्रश्न",
+        statPass: "उपलब्धि स्कोर",
+        statCert: "स्कूल प्रमाण पत्र",
+        labelName: "अपना पूरा नाम दर्ज करें (प्रमाण पत्र के लिए):",
+        placeholderName: "उदाहरण: आरव शर्मा",
+        nameError: "कृपया प्रश्नोत्तरी शुरू करने से पहले अपना पूरा नाम दर्ज करें।",
+        btnStart: "प्रश्नोत्तरी शुरू करें →",
+        progressLabel: (curr, total) => `प्रश्न ${curr} / ${total}`,
+        btnNext: "अगला प्रश्न →",
+        btnSubmit: "समाप्त करें और प्रमाण पत्र देखें →",
+        achievementPill: "उपलब्धि प्रमाण पत्र (≥ 80%)",
+        participationPill: "सहभागिता प्रमाण पत्र",
+        resultHeadingWin: "शानदार जागरूकता!",
+        resultHeadingPart: "भाग लेने के लिए धन्यवाद!",
+        resultSummary: (name, score, total, pct) => `${name}, आपने ${total} में से ${score} अंक (${pct}%) प्राप्त किए हैं।`,
+        btnDownload: "प्रमाण पत्र डाउनलोड करें (PNG)",
+        btnRestart: "पुनः प्रयास करें"
       }
     };
 
-    // Current language state
-    let currentLang = 'en';
-
     // ==========================================
-    // 30 SCENARIO-BASED BILINGUAL QUESTION BANK
-    // (Correct answers evenly distributed across A, B, C, and D)
+    // 3. 30 REAL-LIFE SCENARIO QUESTIONS (Balanced A, B, C, D)
     // ==========================================
     const questionBank = [
       {
-        q: {
-          en: "You get a WhatsApp message from an unknown number saying 'I sent an OTP to your phone by mistake, please forward it to me urgently.' What should you do?",
-          hi: "आपको किसी अनजान नंबर से व्हाट्सएप मैसेज आता है - 'गलती से आपके फोन पर OTP चला गया है, कृपया तुरंत भेज दें।' आपको क्या करना चाहिए?"
+        en: {
+          q: "You receive a WhatsApp message from a friend saying, 'I accidentally sent my 6-digit SMS code to your number, please forward it to me urgently.' What should you do?",
+          options: [
+            "Ignore the message and call your friend directly to verify",
+            "Forward the code immediately to help your friend",
+            "Reply asking why they need the code",
+            "Post the code in your family WhatsApp group"
+          ]
         },
-        options: {
-          en: ["Share the OTP to help them out", "Ignore and never share any OTP with anyone", "Share only half the OTP digits", "Ask for money before sending OTP"],
-          hi: ["मदद के लिए OTP भेज दें", "मैसेज को नजरअंदाज करें और कभी किसी को OTP न दें", "केवल आधे अंक ही बताएं", "OTP भेजने के बदले पैसे मांगें"]
+        hi: {
+          q: "आपको एक मित्र का व्हाट्सएप संदेश मिलता है: 'मैंने गलती से अपना 6-अंकीय एसएमएस कोड आपके नंबर पर भेज दिया है, कृपया इसे तुरंत मुझे भेज दें।' आपको क्या करना चाहिए?",
+          options: [
+            "संदेश को अनदेखा करें और पुष्टि करने के लिए अपने मित्र को सीधे कॉल करें",
+            "अपने मित्र की मदद के लिए तुरंत कोड आगे भेज दें",
+            "जवाब में पूछें कि उन्हें कोड की आवश्यकता क्यों है",
+            "कोड को अपने पारिवारिक व्हाट्सएप ग्रुप में साझा करें"
+          ]
         },
-        answer: 1 // B
+        answer: 0
       },
       {
-        q: {
-          en: "At a railway station or airport, you notice a free public USB charging station. Is it safe to plug in your phone directly via USB cable?",
-          hi: "रेलवे स्टेशन या एयरपोर्ट पर मुफ्त USB चार्जिंग स्टेशन है। क्या अपना फोन सीधे USB केबल से चार्ज करना सुरक्षित है?"
+        en: {
+          q: "At an airport or railway station, your phone battery is at 3%. You see an open public USB charging cable plugged into a wall. What is the safest way to charge?",
+          options: [
+            "Plug directly into the public USB cable",
+            "Use your own power adapter in an AC power socket or use a power bank",
+            "Connect to the USB port and allow 'File Transfer' mode",
+            "Turn off Bluetooth and use the public USB cable"
+          ]
         },
-        options: {
-          en: ["Yes, USB cables only transmit power, not data", "Yes, if your phone screen is turned off", "No, hackers can steal data or install malware through public USB ports (Juice Jacking)", "Yes, as long as charging is fast"],
-          hi: ["हां, USB केवल बिजली देता है, डेटा नहीं लेता", "हां, अगर फोन स्क्रीन लॉक हो", "नहीं, हैकर्स पब्लिक USB पोर्ट्स से डेटा चुरा सकते हैं (Juice Jacking)", "हां, जब तक चार्जिंग तेज हो रही है"]
+        hi: {
+          q: "हवाई अड्डे या रेलवे स्टेशन पर आपके फोन की बैटरी 3% है। आपको दीवार में लगा एक सार्वजनिक USB चार्जिंग केबल दिखाई देता है। चार्ज करने का सबसे सुरक्षित तरीका क्या है?",
+          options: [
+            "सीधे सार्वजनिक USB केबल में फोन लगाएं",
+            "AC पावर सॉकेट में अपने स्वयं के चार्जर एडॉप्टर या पावर बैंक का उपयोग करें",
+            "USB पोर्ट से कनेक्ट करें और 'फ़ाइल ट्रांसफर' मोड की अनुमति दें",
+            "ब्लूटूथ बंद करें और सार्वजनिक USB केबल का उपयोग करें"
+          ]
         },
-        answer: 2 // C
+        answer: 1
       },
       {
-        q: {
-          en: "You receive an SMS claiming your courier parcel is held up, with a link asking for ₹10 re-delivery fee and your card details. What is this?",
-          hi: "आपको मैसेज आता है कि आपका पार्सल रुका हुआ है, ₹10 फीस देने और कार्ड डिटेल्स भरने के लिए लिंक पर क्लिक करें। यह क्या है?"
+        en: {
+          q: "Someone sends you a QR code on WhatsApp saying, 'Scan this and enter your UPI PIN to receive ₹2,000 cashback.' What happens if you do this?",
+          options: [
+            "₹2,000 will be credited to your bank account",
+            "Your bank account will be verified for rewards",
+            "Money will actually be deducted from your bank account",
+            "You will get a discount coupon for shopping"
+          ]
         },
-        options: {
-          en: ["A genuine courier service update", "A discount offer on shipping", "A routine feedback survey", "A fake phishing scam designed to steal your card details"],
-          hi: ["सच्चा कूरियर अपडेट", "शिपिंग पर छूट का ऑफर", "एक सामान्य सर्वे फीडबैक", "कार्ड की जानकारी चुराने वाला नकली फ़िशिंग घोटाला"]
+        hi: {
+          q: "कोई व्यक्ति आपको व्हाट्सएप पर एक QR कोड भेजता है और कहता है, '₹2,000 कैशबैक पाने के लिए इसे स्कैन करें और अपना UPI पिन डालें।' ऐसा करने पर क्या होगा?",
+          options: [
+            "आपके बैंक खाते में ₹2,000 जमा हो जाएंगे",
+            "पुरस्कार के लिए आपका बैंक खाता सत्यापित हो जाएगा",
+            "वास्तव में आपके बैंक खाते से पैसे कट जाएंगे",
+            "आपको खरीदारी के लिए डिस्काउंट कूपन मिलेगा"
+          ]
         },
-        answer: 3 // D
+        answer: 2
       },
       {
-        q: {
-          en: "A viral Facebook quiz promises to tell you 'Which Celebrity You Look Like', but asks for access to your friends list and birthday. What should you do?",
-          hi: "सोशल मीडिया पर एक वायरल क्विज़ है 'आप किस एक्टर जैसे दिखते हैं', पर यह आपके फ्रेंड्स लिस्ट और जन्मतिथि की अनुमति मांगता है। आप क्या करेंगे?"
+        en: {
+          q: "You are excited about your upcoming flight and want to post a photo of your boarding pass on Instagram. Why is this risky?",
+          options: [
+            "Airlines do not allow photos inside airports",
+            "The barcode/QR code contains your personal details and PNR booking info",
+            "It reduces your phone's camera quality",
+            "Instagram blocks travel photos automatically"
+          ]
         },
-        options: {
-          en: ["Avoid the quiz because it collects personal data for profiling", "Take the quiz immediately", "Ask your friends to take it first", "Share your bank password as well"],
-          hi: ["क्विज़ से बचें क्योंकि यह आपकी पर्सनल जानकारी जुटा रहा है", "तुरंत क्विज़ खेलेंगे", "दोस्तों को पहले खेलने को कहेंगे", "बैंक पासवर्ड भी शेयर कर देंगे"]
+        hi: {
+          q: "आप अपनी आगामी उड़ान को लेकर उत्साहित हैं और इंस्टाग्राम पर अपने बोर्डिंग पास की तस्वीर पोस्ट करना चाहते हैं। यह जोखिम भरा क्यों है?",
+          options: [
+            "एयरलाइंस हवाई अड्डों के अंदर फोटो लेने की अनुमति नहीं देती हैं",
+            "बारकोड/QR कोड में आपका व्यक्तिगत विवरण और PNR बुकिंग जानकारी होती है",
+            "इससे आपके फोन के कैमरे की गुणवत्ता कम हो जाती है",
+            "इंस्टाग्राम यात्रा की तस्वीरों को स्वचालित रूप से ब्लॉक कर देता है"
+          ]
         },
-        answer: 0 // A
+        answer: 1
       },
       {
-        q: {
-          en: "You get a call from someone claiming to be your bank manager saying 'Your debit card is blocked! Give me your PIN to unblock it.' What should you do?",
-          hi: "बैंक मैनेजर का कॉल आता है कि 'आपका एटीएम कार्ड ब्लॉक हो गया है, अनब्लॉक करने के लिए पिन (PIN) बताएं।' आप क्या करेंगे?"
+        en: {
+          q: "You download a simple 'Flashlight' or 'Photo Filter' app, and it asks for permission to access your Contacts, Call Logs, and SMS. What should you do?",
+          options: [
+            "Allow all permissions so the app opens faster",
+            "Deny unnecessary permissions or uninstall the app",
+            "Give permission only at night",
+            "Share the app link with friends first"
+          ]
         },
-        options: {
-          en: ["Tell them the PIN immediately", "Hang up; banks NEVER ask for PIN, Password, or OTP over the phone", "Give them a fake PIN first", "Ask them to send an SMS instead"],
-          hi: ["तुरंत पिन बता देंगे", "फोन काट देंगे; बैंक कभी भी फोन पर PIN, पासवर्ड या OTP नहीं मांगते", "गलत पिन बता देंगे", "मैसेज भेजने को कहेंगे"]
+        hi: {
+          q: "आप एक साधारण 'फ़्लैशलाइट' या 'फ़ोटो फ़िल्टर' ऐप डाउनलोड करते हैं, और यह आपके कॉन्टैक्ट्स, कॉल लॉग और SMS तक पहुँचने की अनुमति मांगता है। आपको क्या करना चाहिए?",
+          options: [
+            "सभी अनुमतियां दें ताकि ऐप तेजी से खुले",
+            "अनावश्यक अनुमतियों को अस्वीकार करें या ऐप को अनइंस्टॉल करें",
+            "केवल रात में अनुमति दें",
+            "पहले दोस्तों के साथ ऐप का लिंक साझा करें"
+          ]
         },
-        answer: 1 // B
+        answer: 1
       },
       {
-        q: {
-          en: "You are about to post a photo of your airplane boarding pass on Instagram to announce your holiday. Why is this risky?",
-          hi: "आप छुट्टियों पर जा रहे हैं और इंस्टाग्राम पर अपने हवाई जहाज के बोर्डिंग पास की फोटो पोस्ट कर रहे हैं। यह जोखिम भरा क्यों है?"
+        en: {
+          q: "While browsing on free café Wi-Fi, you remember you need to pay your electricity bill using net banking. What is the safest choice?",
+          options: [
+            "Use the café Wi-Fi because it has a password",
+            "Switch to your mobile data (4G/5G) for banking transactions",
+            "Ask the café waiter if their Wi-Fi is safe",
+            "Use Incognito mode on the café Wi-Fi"
+          ]
         },
-        options: {
-          en: ["It consumes too much internet data", "It makes your photos look bad", "Boarding passes contain barcodes with your full passenger details and booking access", "Instagram deletes flight photos automatically"],
-          hi: ["इससे डेटा ज्यादा खत्म होता है", "इससे फोटो अच्छी नहीं दिखती", "बोर्डिंग पास के बारकोड में आपकी पर्सनल और बुकिंग डिटेल्स छिपी होती हैं", "इंस्टाग्राम ऐसी तस्वीरें हटा देता है"]
+        hi: {
+          q: "मुफ्त कैफ़े वाई-फाई पर ब्राउज़ करते समय, आपको याद आता है कि आपको नेट बैंकिंग का उपयोग करके अपना बिजली बिल भरना है। सबसे सुरक्षित विकल्प क्या है?",
+          options: [
+            "कैफ़े वाई-फाई का उपयोग करें क्योंकि इसमें पासवर्ड है",
+            "बैंकिंग लेनदेन के लिए अपने मोबाइल डेटा (4G/5G) पर स्विच करें",
+            "कैफ़े वेटर से पूछें कि क्या उनका वाई-फाई सुरक्षित है",
+            "कैफ़े वाई-फाई पर इन्कॉग्निटो (Incognito) मोड का उपयोग करें"
+          ]
         },
-        answer: 2 // C
+        answer: 1
       },
       {
-        q: {
-          en: "What is the safest way to connect to your online bank account while waiting in a coffee shop?",
-          hi: "कॉफी शॉप में बैठे हुए अपने ऑनलाइन बैंक अकाउंट में लॉगिन करने का सबसे सुरक्षित तरीका क्या है?"
+        en: {
+          q: "Which of the following is the strongest and safest password for your email account?",
+          options: [
+            "12345678",
+            "aarav2010",
+            "BlueTiger#89!Cloud",
+            "password123"
+          ]
         },
-        options: {
-          en: ["Use the free, password-less coffee shop Wi-Fi", "Ask a stranger to share their hotspot", "Log in using the café's billing computer", "Use your mobile personal hotspot/cellular data"],
-          hi: ["कॉफी शॉप का फ्री ओपन वाई-फाई इस्तेमाल करें", "किसी अनजान व्यक्ति से वाई-फाई मांगें", "कैफे के बिलिंग कंप्यूटर से लॉगिन करें", "अपने मोबाइल का पर्सनल डेटा/हॉटस्पॉट इस्तेमाल करें"]
+        hi: {
+          q: "आपके ईमेल खाते के लिए निम्नलिखित में से कौन सा पासवर्ड सबसे मजबूत और सुरक्षित है?",
+          options: [
+            "12345678",
+            "aarav2010",
+            "BlueTiger#89!Cloud",
+            "password123"
+          ]
         },
-        answer: 3 // D
+        answer: 2
       },
       {
-        q: {
-          en: "Which of these passwords is the strongest and most secure for your email account?",
-          hi: "आपकी ईमेल आईडी के लिए इनमें से कौन सा पासवर्ड सबसे मजबूत और सुरक्षित है?"
+        en: {
+          q: "You get an SMS: 'Your parcel could not be delivered due to incomplete address. Click http://bit.ly/track-pkg-99 to update.' You didn't order anything. What is this?",
+          options: [
+            "A genuine post office message",
+            "A free gift delivery from your bank",
+            "A courier company system error",
+            "A phishing scam link designed to steal your data or money"
+          ]
         },
-        options: {
-          en: ["Tr$5#k9!PqL@2026", "Rahul1234", "12345678", "password2026"],
-          hi: ["Tr$5#k9!PqL@2026", "Rahul1234", "12345678", "password2026"]
+        hi: {
+          q: "आपको एक SMS मिलता है: 'अधूरे पते के कारण आपका पार्सल डिलीवर नहीं हो सका। अपडेट करने के लिए http://bit.ly/track-pkg-99 पर क्लिक करें।' आपने कुछ भी ऑर्डर नहीं किया था। यह क्या है?",
+          options: [
+            "डाकघर का एक असली संदेश",
+            "आपके बैंक की ओर से एक मुफ्त उपहार डिलीवरी",
+            "कूरियर कंपनी की सिस्टम त्रुटि",
+            "आपका डेटा या पैसा चुराने के लिए बनाया गया एक फ़िशिंग स्कैम लिंक"
+          ]
         },
-        answer: 0 // A
+        answer: 3
       },
       {
-        q: {
-          en: "You are downloading a simple Flashlight App on your smartphone, and it requests permission to read your Contacts and SMS. What should you do?",
-          hi: "आप टॉर्च (Flashlight) ऐप डाउनलोड कर रहे हैं, और वह आपके कॉन्टैक्ट्स और मैसेज (SMS) पढ़ने की परमिशन मांगता है। आपको क्या करना चाहिए?"
+        en: {
+          q: "What is the national cybercrime helpline number in India to report online financial fraud immediately?",
+          options: [
+            "1930",
+            "100",
+            "108",
+            "1912"
+          ]
         },
-        options: {
-          en: ["Allow all permissions easily", "Deny permissions or uninstall the app, as a flashlight does not need contacts or SMS", "Allow only SMS reading", "Share your location as well"],
-          hi: ["सभी परमिशन दे देंगे", "परमिशन देने से मना करें या ऐप हटा दें, टॉर्च को कॉन्टैक्ट्स की जरूरत नहीं होती", "केवल मैसेज की परमिशन देंगे", "लोकेशन भी शेयर कर देंगे"]
+        hi: {
+          q: "भारत में ऑनलाइन वित्तीय धोखाधड़ी की तुरंत रिपोर्ट करने के लिए राष्ट्रीय साइबर क्राइम हेल्पलाइन नंबर क्या है?",
+          options: [
+            "1930",
+            "100",
+            "108",
+            "1912"
+          ]
         },
-        answer: 1 // B
+        answer: 0
       },
       {
-        q: {
-          en: "When creating online accounts, why is Two-Factor Authentication (2FA) recommended?",
-          hi: "ऑनलाइन अकाउंट्स बनाते समय टू-फैक्टर ऑथेंटिकेशन (2FA) ऑन करने की सलाह क्यों दी जाती है?"
+        en: {
+          q: "A caller claims to be from your bank's KYC department and says your account will be blocked tonight unless you share your OTP. What should you do?",
+          options: [
+            "Share the OTP quickly so the account stays active",
+            "Ask for their employee ID and then share the OTP",
+            "Hang up immediately—banks never ask for your OTP over a call",
+            "Send your Aadhaar card photo on WhatsApp instead"
+          ]
         },
-        options: {
-          en: ["It automatically changes your profile picture", "It speeds up your internet download speed", "It requires an extra security step (like a phone code) even if someone knows your password", "It eliminates the need for passwords entirely"],
-          hi: ["यह प्रोफाइल फोटो बदल देता है", "यह इंटरनेट स्पीड बढ़ा देता है", "पासवर्ड पता होने पर भी लॉग इन के लिए फोन पर आए कोड की अतिरिक्त सुरक्षा मिलती है", "इससे पासवर्ड की जरूरत ही नहीं रहती"]
+        hi: {
+          q: "एक कॉलर आपके बैंक के KYC विभाग से होने का दावा करता है और कहता है कि यदि आप अपना OTP साझा नहीं करते हैं तो आज रात आपका खाता बंद कर दिया जाएगा। आपको क्या करना चाहिए?",
+          options: [
+            "जल्दी से OTP साझा करें ताकि खाता सक्रिय रहे",
+            "उनकी कर्मचारी आईडी पूछें और फिर OTP साझा करें",
+            "तुरंत फोन काट दें—बैंक कभी भी कॉल पर आपका OTP नहीं मांगते हैं",
+            "इसके बजाय व्हाट्सएप पर अपने आधार कार्ड की फोटो भेजें"
+          ]
         },
-        answer: 2 // C
+        answer: 2
       },
       {
-        q: {
-          en: "You sell an old mobile phone on an online marketplace. What must you do before handing it over to the buyer?",
-          hi: "आप अपना पुराना मोबाइल बेच रहे हैं। खरीदार को फोन देने से पहले आपको क्या करना आवश्यक है?"
+        en: {
+          q: "When you enable Two-Factor Authentication (2FA) on your Instagram or Gmail account, what extra protection do you get?",
+          options: [
+            "Your internet speed becomes twice as fast",
+            "Even if someone steals your password, they cannot log in without a second verification code",
+            "Your account never needs a password again",
+            "All your photos are automatically edited"
+          ]
         },
-        options: {
-          en: ["Simply delete phone call history", "Remove the back cover only", "Turn off Wi-Fi", "Perform a full Factory Data Reset and remove linked accounts"],
-          hi: ["केवल कॉल हिस्ट्री डिलीट करें", "केवल फोन कवर निकालें", "वाई-फाई बंद कर दें", "फोन को पूरी तरह फ़ैक्टरी रीसेट (Factory Reset) करें और अकाउंट्स हटाएं"]
+        hi: {
+          q: "जब आप अपने इंस्टाग्राम या जीमेल खाते पर टू-फैक्टर ऑथेंटिकेशन (2FA) सक्षम करते हैं, तो आपको क्या अतिरिक्त सुरक्षा मिलती है?",
+          options: [
+            "आपकी इंटरनेट स्पीड दोगुनी तेज हो जाती है",
+            "भले ही कोई आपका पासवर्ड चुरा ले, वे दूसरे सत्यापन कोड के बिना लॉग इन नहीं कर सकते",
+            "आपके खाते को फिर कभी पासवर्ड की आवश्यकता नहीं होती",
+            "आपकी सभी तस्वीरें स्वचालित रूप से संपादित हो जाती हैं"
+          ]
         },
-        answer: 3 // D
+        answer: 1
       },
       {
-        q: {
-          en: "You receive an email from 'support@paypa1-security.com' stating your account will be suspended in 2 hours unless you log in. What should you notice?",
-          hi: "'support@paypa1-security.com' से ईमेल आया है कि 2 घंटे में अकाउंट बंद हो जाएगा। आपको किस बात पर ध्यान देना चाहिए?"
+        en: {
+          q: "You are selling an old bicycle online. A buyer agrees immediately without bargaining and sends a 'Payment Request' link on UPI asking you to enter your PIN to receive money. What should you know?",
+          options: [
+            "Entering a UPI PIN is always required to receive money",
+            "You NEVER need to enter your UPI PIN to receive money",
+            "Only enter the PIN if the amount is above ₹1,000",
+            "Enter your ATM PIN instead of UPI PIN"
+          ]
         },
-        options: {
-          en: ["The sender email has a typo ('paypa1' instead of 'paypal'), indicating a phishing scam", "Click the link immediately because it is urgent", "Reply with your secret security questions", "Forward it to your relatives"],
-          hi: ["ईमेल आईडी में गलती है ('paypal' की जगह 'paypa1'), जो एक फर्जी ठगी का इशारा है", "जल्दी में तुरंत लिंक पर क्लिक करेंगे", "सिक्योरिटी सवालों का जवाब देंगे", "रिश्तेदारों को फॉरवर्ड करेंगे"]
+        hi: {
+          q: "आप ऑनलाइन एक पुरानी साइकिल बेच रहे हैं। एक खरीदार बिना मोलभाव किए तुरंत सहमत हो जाता है और पैसे प्राप्त करने के लिए आपको अपना पिन दर्ज करने के लिए कहकर UPI पर 'पेमेंट रिक्वेस्ट' लिंक भेजता है। आपको क्या पता होना चाहिए?",
+          options: [
+            "पैसे प्राप्त करने के लिए हमेशा UPI पिन दर्ज करना आवश्यक होता है",
+            "पैसे प्राप्त करने के लिए आपको कभी भी अपना UPI पिन दर्ज करने की आवश्यकता नहीं होती है",
+            "यदि राशि ₹1,000 से अधिक है तो ही पिन दर्ज करें",
+            "UPI पिन के स्थान पर अपना ATM पिन दर्ज करें"
+          ]
         },
-        answer: 0 // A
+        answer: 1
       },
       {
-        q: {
-          en: "Why is it unsafe to write your credit/debit card ATM PIN on a slip of paper kept inside your wallet?",
-          hi: "अपने वॉलेट में एटीएम कार्ड के साथ उसका पिन (PIN) कागज पर लिखकर रखना असुरक्षित क्यों है?"
+        en: {
+          q: "A loud pop-up appears on your computer screen: 'WARNING! Your PC has 14 viruses! Call Microsoft Support at 1800-XXX-XXXX immediately!' What should you do?",
+          options: [
+            "Call the number and let them remotely control your PC",
+            "Pay for their antivirus software using a credit card",
+            "Close the browser tab/window—it is a fake tech-support scam",
+            "Restart your Wi-Fi router ten times"
+          ]
         },
-        options: {
-          en: ["Paper wears out quickly", "If your wallet is stolen, the thief instantly gets full access to withdraw your funds", "It violates bank paper conservation rules", "It makes the wallet heavy"],
-          hi: ["कागज जल्दी फट जाता है", "अगर वॉलेट चोरी हुआ, तो चोर तुरंत आपके पैसे निकाल सकता है", "बैंक के नियमों के खिलाफ है", "इससे बटुआ भारी होता है"]
+        hi: {
+          q: "आपके कंप्यूटर स्क्रीन पर एक तेज़ पॉप-अप दिखाई देता है: 'चेतावनी! आपके पीसी में 14 वायरस हैं! तुरंत 1800-XXX-XXXX पर माइक्रोसॉफ्ट सपोर्ट को कॉल करें!' आपको क्या करना चाहिए?",
+          options: [
+            "नंबर पर कॉल करें और उन्हें अपने पीसी को रिमोटली नियंत्रित करने दें",
+            "क्रेडिट कार्ड का उपयोग करके उनके एंटीवायरस सॉफ़्टवेयर के लिए भुगतान करें",
+            "ब्राउज़र टैब/विंडो बंद करें—यह एक नकली टेक-सपोर्ट घोटाला है",
+            "अपने वाई-फाई राउटर को दस बार रीस्टार्ट करें"
+          ]
         },
-        answer: 1 // B
+        answer: 2
       },
       {
-        q: {
-          en: "What should you do if your computer screen suddenly locks with a message demanding $200 in bitcoin to unlock your personal family photos?",
-          hi: "अगर आपकी कंप्यूटर स्क्रीन पर अचानक मैसेज आए कि फोटो अनलॉक करने के लिए $200 मांगें गए हैं (Ransomware), तो क्या करना चाहिए?"
+        en: {
+          q: "Why should you avoid using the exact same password for your school email, gaming account, and social media?",
+          options: [
+            "Websites do not allow the same password twice",
+            "If one website gets hacked, hackers can break into all your other accounts",
+            "It slows down your phone's storage",
+            "Using different passwords drains battery faster"
+          ]
         },
-        options: {
-          en: ["Pay the money immediately", "Send them more photos", "Contact a professional cybersecurity expert/cyber cell and never pay extortionists", "Restart the screen 100 times"],
-          hi: ["तुरंत पैसे दे देंगे", "उन्हें और फोटोज भेजेंगे", "साइबर एक्सपर्ट/साइबर सेल से संपर्क करें और कभी फिरौती न दें", "स्क्रीन को 100 बार रीस्टार्ट करेंगे"]
+        hi: {
+          q: "आपको अपने स्कूल ईमेल, गेमिंग खाते और सोशल मीडिया के लिए एक ही पासवर्ड का उपयोग करने से क्यों बचना चाहिए?",
+          options: [
+            "वेबसाइटें एक ही पासवर्ड को दो बार अनुमति नहीं देती हैं",
+            "यदि एक वेबसाइट हैक हो जाती है, तो हैकर्स आपके अन्य सभी खातों में सेंध लगा सकते हैं",
+            "यह आपके फोन के स्टोरेज को धीमा कर देता है",
+            "अलग-अलग पासवर्ड का उपयोग करने से बैटरी तेजी से खत्म होती है"
+          ]
         },
-        answer: 2 // C
+        answer: 1
       },
       {
-        q: {
-          en: "Is it safe to store your bank passwords in an unencrypted text file named 'MyPasswords.txt' on your desktop?",
-          hi: "क्या अपने डेस्कटॉप पर 'MyPasswords.txt' नाम की फाइल में बैंक पासवर्ड लिखकर रखना सुरक्षित है?"
+        en: {
+          q: "You are about to sell or give away your old smartphone. Simply deleting your photos and logging out of apps is NOT enough. What must you do?",
+          options: [
+            "Remove the SIM card and keep the phone screen off",
+            "Change the phone wallpaper to a blank image",
+            "Back up your data and perform a full 'Factory Data Reset'",
+            "Delete only your WhatsApp chat history"
+          ]
         },
-        options: {
-          en: ["Yes, desktop files are completely invisible", "Yes, as long as the file is hidden in a folder", "Yes, if the text font size is small", "No, anyone with physical or remote malware access can read it easily"],
-          hi: ["हां, डेस्कटॉप फाइलें किसी को नहीं दिखतीं", "हां, अगर फाइल किसी फोल्डर के अंदर हो", "हां, अगर टेक्स्ट का साइज छोटा हो", "नहीं, कंप्यूटर में वायरस आने पर कोई भी पासवर्ड पढ़ सकता है"]
+        hi: {
+          q: "आप अपना पुराना स्मार्टफोन बेचने या किसी को देने वाले हैं। केवल अपनी तस्वीरें हटाना और ऐप्स से लॉग आउट करना पर्याप्त नहीं है। आपको क्या करना चाहिए?",
+          options: [
+            "सिम कार्ड निकाल दें और फोन की स्क्रीन बंद रखें",
+            "फोन के वॉलपेपर को एक खाली इमेज में बदल दें",
+            "अपने डेटा का बैकअप लें और पूर्ण 'फ़ैक्टरी डेटा रीसेट' (Factory Data Reset) करें",
+            "केवल अपनी व्हाट्सएप चैट हिस्ट्री हटाएं"
+          ]
         },
-        answer: 3 // D
+        answer: 2
       },
       {
-        q: {
-          en: "You see a QR code posted on a street pole saying 'Scan to win ₹5,000 cash instantly into your account'. What happens when you scan it?",
-          hi: "सड़क के खंभे पर क्यूआर कोड चिपका है 'स्कैन करें और तुरंत ₹5,000 पाएं'। इसे स्कैन करते समय क्या ध्यान रखना चाहिए?"
+        en: {
+          q: "While checking out on an online shopping website, how can you quickly tell if the connection between your browser and the site is encrypted?",
+          options: [
+            "The website has colorful animations",
+            "The web address starts with 'https://' and shows a padlock icon",
+            "The website loads in less than 1 second",
+            "The website asks for your date of birth"
+          ]
         },
-        options: {
-          en: ["QR codes can direct you to dangerous phishing links or request UPI PIN to DEDUCT money", "Scanning a QR code can only receive money, never deduct", "It is guaranteed money from the government", "It charges your phone battery"],
-          hi: ["QR कोड फर्जी वेबसाइट पर ले जा सकता है या पैसे काटने के लिए UPI PIN मांग सकता है", "QR कोड से केवल पैसे मिलते हैं, कटते नहीं", "यह पक्का सरकारी इनाम है", "यह फोन चार्ज कर देगा"]
+        hi: {
+          q: "किसी ऑनलाइन शॉपिंग वेबसाइट पर चेकआउट करते समय, आप जल्दी से कैसे बता सकते हैं कि आपके ब्राउज़र और साइट के बीच का कनेक्शन एन्क्रिप्टेड (सुरक्षित) है?",
+          options: [
+            "वेबसाइट में रंगीन एनिमेशन हैं",
+            "वेब पता 'https://' से शुरू होता है और एक पैडलॉक (ताला) आइकन दिखाता है",
+            "वेबसाइट 1 सेकंड से भी कम समय में लोड होती है",
+            "वेबसाइट आपकी जन्म तिथि पूछती है"
+          ]
         },
-        answer: 0 // A
+        answer: 1
       },
       {
-        q: {
-          en: "What does entering your UPI PIN during a mobile payment transaction actually do?",
-          hi: "यूपीआई (UPI) पेमेंट के दौरान अपना पिन (PIN) दर्ज करने का क्या मतलब होता है?"
+        en: {
+          q: "A fun online quiz on social media asks: 'Find your celebrity twin! Enter your mother's maiden name, your pet's name, and your birth city.' Why is this dangerous?",
+          options: [
+            "It might show an ugly celebrity photo",
+            "These are common security questions used to reset bank and email passwords",
+            "Social media quizzes charge money after 5 clicks",
+            "It deletes your profile picture"
+          ]
         },
-        options: {
-          en: ["It receives money into your account", "It AUTHORIZES MONEY TO BE DEDUCTED from your bank account", "It checks your bank account balance for free", "It recharges your mobile talktime"],
-          hi: ["खाते में पैसे प्राप्त करना", "आपके खाते से पैसे काटने की अनुमति देना (Money Deduct)", "फ्री में बैंक बैलेंस चेक करना", "मोबाइल रिचार्ज करना"]
+        hi: {
+          q: "सोशल मीडिया पर एक मजेदार ऑनलाइन क्विज़ पूछता है: 'अपना सेलिब्रिटी जुड़वां खोजें! अपनी मां का पहला नाम, अपने पालतू जानवर का नाम और अपना जन्म शहर दर्ज करें।' यह खतरनाक क्यों है?",
+          options: [
+            "यह किसी सेलिब्रिटी की खराब फोटो दिखा सकता है",
+            "ये सामान्य सुरक्षा प्रश्न हैं जिनका उपयोग बैंक और ईमेल पासवर्ड रीसेट करने के लिए किया जाता है",
+            "सोशल मीडिया क्विज़ 5 क्लिक के बाद पैसे चार्ज करते हैं",
+            "यह आपकी प्रोफ़ाइल तस्वीर हटा देता है"
+          ]
         },
-        answer: 1 // B
+        answer: 1
       },
       {
-        q: {
-          en: "You receive an unexpected pop-up on your laptop saying 'Your System is Infected! Call this Toll-Free number now for cleanup.' What is this?",
-          hi: "लैपटॉप पर अचानक पॉप-अप आता है - 'आपका सिस्टम इन्फेक्टेड है! सफाई के लिए तुरंत इस टोल-फ्री नंबर पर कॉल करें।' यह क्या है?"
+        en: {
+          q: "You receive an email claiming you won a ₹50 Lakh lottery in a contest you never entered. To claim it, you must pay a ₹2,500 'processing fee'. What is this?",
+          options: [
+            "A genuine government prize scheme",
+            "An advance-fee fraud scam",
+            "A tax refund from your school",
+            "A lucky draw from your telecom operator"
+          ]
         },
-        options: {
-          en: ["A genuine alert from Microsoft/Apple", "An offer for a free laptop upgrade", "A fake Tech Support scam designed to gain remote control of your computer", "An internet speed test"],
-          hi: ["कंपनी की ओर से सच्ची चेतावनी", "लैपटॉप अपग्रेड का ऑफर", "फर्जी टेक सपोर्ट घोटाला जो आपके कंप्यूटर का रिमोट कंट्रोल हथियाना चाहता है", "इंटरनेट स्पीड टेस्ट"]
+        hi: {
+          q: "आपको एक ईमेल प्राप्त होता है जिसमें दावा किया जाता है कि आपने एक ऐसी प्रतियोगिता में ₹50 लाख की लॉटरी जीती है जिसमें आपने कभी भाग ही नहीं लिया। इसे पाने के लिए आपको ₹2,500 'प्रोसेसिंग शुल्क' देना होगा। यह क्या है?",
+          options: [
+            "एक असली सरकारी पुरस्कार योजना",
+            "एक अग्रिम-शुल्क धोखाधड़ी घोटाला (Advance-fee scam)",
+            "आपके स्कूल से टैक्स रिफंड",
+            "आपके टेलीकॉम ऑपरेटर की ओर से एक लकी ड्रा"
+          ]
         },
-        answer: 2 // C
+        answer: 1
       },
       {
-        q: {
-          en: "What is the primary risk of sharing your Aadhaar number or National ID card publicly on social media?",
-          hi: "सोशल मीडिया पर अपना आधार कार्ड या नेशनल आईडी कार्ड सार्वजनिक रूप से शेयर करने का मुख्य जोखिम क्या है?"
+        en: {
+          q: "You use a computer in a public cyber café or school lab to check your email. When you finish, what is the most important step?",
+          options: [
+            "Just close the browser window using the 'X' button",
+            "Turn off the monitor screen",
+            "Click 'Sign Out / Log Out' from your account and clear browser history",
+            "Leave the account open for the next student"
+          ]
         },
-        options: {
-          en: ["Your photo might get low likes", "The image file takes up too much storage", "It automatically changes your address", "Identity theft and unauthorized SIM or loan applications in your name"],
-          hi: ["फोटो पर कम लाइक्स मिलेंगे", "इमेज फाइल ज्यादा जगह घेरेगी", "आपका पता बदल जाएगा", "पहचान की चोरी (Identity Theft) और आपके नाम पर फर्जी सिम या लोन का दुरुपयोग"]
+        hi: {
+          q: "आप अपना ईमेल जांचने के लिए सार्वजनिक साइबर कैफ़े या स्कूल लैब में कंप्यूटर का उपयोग करते हैं। काम पूरा होने पर सबसे महत्वपूर्ण कदम क्या है?",
+          options: [
+            "केवल 'X' बटन का उपयोग करके ब्राउज़र विंडो बंद करें",
+            "मॉनिटर स्क्रीन बंद कर दें",
+            "अपने खाते से 'साइन आउट / लॉग आउट' पर क्लिक करें और ब्राउज़र हिस्ट्री साफ़ करें",
+            "अगले छात्र के लिए खाता खुला छोड़ दें"
+          ]
         },
-        answer: 3 // D
+        answer: 2
       },
       {
-        q: {
-          en: "A WhatsApp message says 'Forward this to 10 groups to get 50GB free internet data instantly'. What should you do?",
-          hi: "व्हाट्सएप मैसेज आता है - 'फ्री 50GB इंटरनेट डेटा पाने के लिए इसे 10 ग्रुप्स में फॉरवर्ड करें।' आप क्या करेंगे?"
+        en: {
+          q: "Your phone notifies you that a system software update is available. Why should you install official updates regularly?",
+          options: [
+            "Updates patch newly discovered security holes that hackers exploit",
+            "Updates make your phone physically lighter",
+            "Updates give you free mobile recharge",
+            "Updates remove all your contacts safely"
+          ]
         },
-        options: {
-          en: ["Delete the message; it is a fake spam link collecting personal numbers", "Forward it immediately to 10 groups", "Forward it to 5 groups first to test", "Reply asking for 100GB instead"],
-          hi: ["मैसेज डिलीट करें; यह पर्सनल नंबर जुटाने वाला फर्जी लिंक है", "तुरंत 10 ग्रुप में भेजेंगे", "पहले 5 ग्रुप में भेजकर चेक करेंगे", "100GB मांगने के लिए रिप्लाई करेंगे"]
+        hi: {
+          q: "आपका फोन आपको सूचित करता है कि एक सिस्टम सॉफ़्टवेयर अपडेट उपलब्ध है। आपको नियमित रूप से आधिकारिक अपडेट क्यों इंस्टॉल करने चाहिए?",
+          options: [
+            "अपडेट उन नई खोजी गई सुरक्षा खामियों को ठीक करते हैं जिनका हैकर्स फायदा उठाते हैं",
+            "अपडेट आपके फोन को हल्का बनाते हैं",
+            "अपडेट आपको मुफ्त मोबाइल रिचार्ज देते हैं",
+            "अपडेट आपके सभी कॉन्टैक्ट्स को सुरक्षित रूप से हटा देते हैं"
+          ]
         },
-        answer: 0 // A
+        answer: 0
       },
       {
-        q: {
-          en: "Why should you lock your WhatsApp account with a Fingerprint/PIN lock?",
-          hi: "अपने व्हाट्सएप ऐप में फिंगरप्रिंट या पिन लॉक लगाना क्यों जरूरी है?"
+        en: {
+          q: "You receive a file named 'Exam_Answers.apk' or 'Wedding_Card.apk' on WhatsApp from an unknown number. What happens if you install an '.apk' file from outside the official Play Store?",
+          options: [
+            "It opens a high-definition wedding video",
+            "It can install hidden spyware/malware that steals your OTPs and banking data",
+            "It cleans junk files from your phone",
+            "It increases your phone's RAM"
+          ]
         },
-        options: {
-          en: ["To increase chat typing speed", "To prevent friends or strangers who hold your unlocked phone from reading personal chats", "To back up messages on Google Drive", "To make emojis look colorful"],
-          hi: ["टाइपिंग स्पीड बढ़ाने के लिए", "ताकि फोन किसी के हाथ में जाने पर भी आपकी पर्सनल चैट कोई न पढ़ सके", "गूगल ड्राइव पर बैकअप लेने के लिए", "इमोजी को सुंदर बनाने के लिए"]
+        hi: {
+          q: "आपको किसी अज्ञात नंबर से व्हाट्सएप पर 'Exam_Answers.apk' या 'Wedding_Card.apk' नाम की फ़ाइल मिलती है। यदि आप आधिकारिक प्ले स्टोर के बाहर से '.apk' फ़ाइल इंस्टॉल करते हैं तो क्या होता है?",
+          options: [
+            "यह एक हाई-डेफिनिशन शादी का वीडियो खोलता है",
+            "यह छिपा हुआ स्पाइवेयर/मैलवेयर इंस्टॉल कर सकता है जो आपके OTP और बैंकिंग डेटा को चुरा लेता है",
+            "यह आपके फोन से जंक फ़ाइलों को साफ़ करता है",
+            "यह आपके फोन की RAM बढ़ाता है"
+          ]
         },
-        answer: 1 // B
+        answer: 1
       },
       {
-        q: {
-          en: "You get a call offering a 'work-from-home job making ₹5,000/day by simply liking YouTube videos', but asks for a ₹2,000 registration fee. What is this?",
-          hi: "'यूट्यूब वीडियो लाइक करके ₹5000 रोज कमाएं' - ऐसा वर्क फ्रॉम होम जॉब ऑफर आता है, पर ₹2000 रजिस्ट्रेशन फीस मांगते हैं। यह क्या है?"
+        en: {
+          q: "What is 'Shoulder Surfing' when you are typing your ATM PIN or phone passcode in a crowded bus or market?",
+          options: [
+            "Watching videos on your phone while walking",
+            "Someone secretly looking over your shoulder to watch and memorize your PIN/password",
+            "Carrying your laptop bag on one shoulder",
+            "Using Bluetooth earphones in a crowd"
+          ]
         },
-        options: {
-          en: ["A legitimate high-paying career opportunity", "A government employment scheme", "A classic job scam; real employers never ask you to pay money to get hired", "A YouTube official training program"],
-          hi: ["शानदार नौकरी का मौका", "सरकारी रोजगार योजना", "क्लासिक जॉब स्कैम; असली कंपनियां कभी नौकरी देने के लिए पैसे नहीं मांगतीं", "यूट्यूब की ट्रेनिंग ट्रिप"]
+        hi: {
+          q: "भीड़भाड़ वाली बस या बाजार में अपना ATM पिन या फोन पासकोड टाइप करते समय 'शोल्डर सर्फिंग' (Shoulder Surfing) क्या है?",
+          options: [
+            "चलते समय अपने फोन पर वीडियो देखना",
+            "किसी के द्वारा आपके कंधे के ऊपर से चुपके से देखकर आपका पिन/पासवर्ड याद करना",
+            "अपने लैपटॉप बैग को एक कंधे पर ले जाना",
+            "भीड़ में ब्लूटूथ इयरफ़ोन का उपयोग करना"
+          ]
         },
-        answer: 2 // C
+        answer: 1
       },
       {
-        q: {
-          en: "What should you do if you lose your mobile phone containing your UPI payment apps?",
-          hi: "यदि आपका मोबाइल फोन खो जाता है जिसमें UPI पेमेंट ऐप्स और बैंक खाते लिंक हैं, तो सबसे पहला कदम क्या होना चाहिए?"
+        en: {
+          q: "If you need to share a copy of your Aadhaar card for hotel check-in or SIM verification, what is the safest version to use?",
+          options: [
+            "A full unmasked Aadhaar card with your bank account number written on it",
+            "A 'Masked Aadhaar' (where the first 8 digits are hidden) downloaded from the official UIDAI website",
+            "Post your Aadhaar photo publicly on Facebook",
+            "Send your Aadhaar along with your ATM PIN"
+          ]
         },
-        options: {
-          en: ["Wait 10 days to see if someone returns it", "Buy a new phone case", "Send an email to the phone manufacturer", "Immediately block your SIM card and report to your bank to block UPI services"],
-          hi: ["10 दिन इंतजार करेंगे", "नया फोन कवर खरीदेंगे", "कंपनी को ईमेल करेंगे", "तुरंत अपना सिम कार्ड ब्लॉक कराएं और बैंक में कॉल करके UPI सेवाएं बंद कराएं"]
+        hi: {
+          q: "यदि आपको होटल चेक-इन या सिम सत्यापन के लिए अपने आधार कार्ड की एक प्रति साझा करने की आवश्यकता है, तो उपयोग करने के लिए सबसे सुरक्षित संस्करण कौन सा है?",
+          options: [
+            "एक पूर्ण बिना मास्क वाला आधार कार्ड जिस पर आपका बैंक खाता नंबर लिखा हो",
+            "आधिकारिक UIDAI वेबसाइट से डाउनलोड किया गया 'मास्क्ड आधार' (Masked Aadhaar - जिसमें पहले 8 अंक छिपे होते हैं)",
+            "अपनी आधार फोटो फेसबुक पर सार्वजनिक रूप से पोस्ट करें",
+            "अपने ATM पिन के साथ अपना आधार भेजें"
+          ]
         },
-        answer: 3 // D
+        answer: 1
       },
       {
-        q: {
-          en: "When shopping online, which website URL shows that the payment page is encrypted?",
-          hi: "ऑनलाइन शॉपिंग करते समय, कौन सा वेबसाइट एड्रेस दिखाता है कि पेमेंट पेज सुरक्षित है?"
+        en: {
+          q: "Which of these is a clear sign that an email claiming to be from 'Amazon' or 'SBI Bank' is actually a fake phishing email?",
+          options: [
+            "The email uses your correct full name",
+            "The sender's email address looks strange, like 'support@sbi-update-alert99.com'",
+            "The email has a bank logo at the top",
+            "The email was sent during daytime"
+          ]
         },
-        options: {
-          en: ["https://www.trusted-shop.com (starts with HTTPS)", "http://shop-online-deals.com", "ftp://shopping-cart.org", "www.shop-cheap.net"],
-          hi: ["https://www.trusted-shop.com (HTTPS से शुरू)", "http://shop-online-deals.com", "ftp://shopping-cart.org", "www.shop-cheap.net"]
+        hi: {
+          q: "इनमें से कौन सा एक स्पष्ट संकेत है कि 'Amazon' या 'SBI बैंक' से होने का दावा करने वाला ईमेल वास्तव में एक नकली फ़िशिंग ईमेल है?",
+          options: [
+            "ईमेल में आपके सही पूरे नाम का उपयोग किया गया है",
+            "प्रेषक का ईमेल पता अजीब दिखता है, जैसे 'support@sbi-update-alert99.com'",
+            "ईमेल के शीर्ष पर बैंक का लोगो है",
+            "ईमेल दिन के समय भेजा गया था"
+          ]
         },
-        answer: 0 // A
+        answer: 1
       },
       {
-        q: {
-          en: "Why is it important to set up a screen lock (PIN, Pattern, or Biometric) on your smart TV or tablet?",
-          hi: "अपने स्मार्टफोन, टैबलेट या स्मार्ट डिवाइस पर स्क्रीन लॉक (PIN/पैटर्न) लगाना क्यों जरूरी है?"
+        en: {
+          q: "Why is setting your social media profile (like Instagram) to 'Private' a smart privacy habit for students?",
+          options: [
+            "It gives you free blue-tick verification",
+            "Only people you approve can see your personal photos, school uniform, and daily locations",
+            "It prevents your phone from overheating",
+            "It allows you to upload 10-hour videos"
+          ]
         },
-        options: {
-          en: ["It cleans dust off the screen", "It protects stored personal photos, emails, and financial apps from unauthorized eyes", "It improves TV sound quality", "It increases internal storage capacity"],
-          hi: ["यह स्क्रीन की धूल साफ करता है", "यह आपकी पर्सनल फोटो, ईमेल और पेमेंट ऐप्स को दूसरों की पहुंच से सुरक्षित रखता है", "यह आवाज साफ करता है", "यह स्टोरेज बढ़ाता है"]
+        hi: {
+          q: "छात्रों के लिए अपनी सोशल मीडिया प्रोफ़ाइल (जैसे इंस्टाग्राम) को 'प्राइवेट' (Private) रखना एक समझदारी भरी गोपनीयता आदत क्यों है?",
+          options: [
+            "यह आपको मुफ्त ब्लू-टिक सत्यापन देता है",
+            "केवल आपके द्वारा स्वीकृत लोग ही आपकी व्यक्तिगत तस्वीरें, स्कूल यूनिफ़ॉर्म और दैनिक स्थान देख सकते हैं",
+            "यह आपके फोन को ज़्यादा गरम होने से बचाता है",
+            "यह आपको 10 घंटे के वीडियो अपलोड करने की अनुमति देता है"
+          ]
         },
-        answer: 1 // B
+        answer: 1
       },
       {
-        q: {
-          en: "You are creating a new social media account. Who should ideally be able to view your personal phone number and home address?",
-          hi: "नया सोशल मीडिया अकाउंट बनाते समय, आपका फोन नंबर और घर का पता किसे दिखना चाहिए?"
+        en: {
+          q: "You get a call from an unknown number with a robotic voice: 'Press 1 immediately or your mobile number will be disconnected in 2 hours by TRAI.' What should you do?",
+          options: [
+            "Press 1 and give your personal details to the operator",
+            "Disconnect the call immediately—it is an automated scam call",
+            "Transfer ₹500 to keep your number active",
+            "Switch off your phone for 3 days"
+          ]
         },
-        options: {
-          en: ["Everyone on the Internet (Public)", "All strangers in your city", "Only You / Private (Hidden from public profiles)", "Advertisers only"],
-          hi: ["इंटरनेट पर सभी को (Public)", "शहर के सभी अनजान लोगों को", "केवल आपको / प्राइवेट (प्रोफाइल पर छुपा हुआ)", "विज्ञापनदाताओं को"]
+        hi: {
+          q: "आपको एक अज्ञात नंबर से रोबोटिक आवाज़ में कॉल आता है: 'तुरंत 1 दबाएं अन्यथा TRAI द्वारा 2 घंटे में आपका मोबाइल नंबर बंद कर दिया जाएगा।' आपको क्या करना चाहिए?",
+          options: [
+            "1 दबाएं और ऑपरेटर को अपना व्यक्तिगत विवरण दें",
+            "तुरंत कॉल काट दें—यह एक स्वचालित घोटाला कॉल है",
+            "अपना नंबर सक्रिय रखने के लिए ₹500 ट्रांसफर करें",
+            "3 दिनों के लिए अपना फोन स्विच ऑफ कर दें"
+          ]
         },
-        answer: 2 // C
+        answer: 1
       },
       {
-        q: {
-          en: "An SMS says: 'Dear Customer, your electricity connection will be disconnected tonight at 9 PM due to unpaid bills. Call Officer at 98xxxxxx.' What should you do?",
-          hi: "मैसेज आता है: 'प्रिय ग्राहक, बिजली बिल जमा न होने के कारण आज रात 9 बजे बिजली काट दी जाएगी। इस नंबर पर तुरंत संपर्क करें।' आप क्या करेंगे?"
+        en: {
+          q: "What is 'Ransomware'?",
+          options: [
+            "A free software that speeds up video games",
+            "A type of malicious software that locks/encrypts your files and demands money to unlock them",
+            "A school attendance tracking app",
+            "A device used to boost Wi-Fi signals"
+          ]
         },
-        options: {
-          en: ["Call the unknown number in panic and pay money immediately", "Turn off all lights at home", "Forward to your neighbors", "Verify your bill directly through official electricity department website/app"],
-          hi: ["घबराकर उस अनजान नंबर पर कॉल करेंगे और पैसे देंगे", "घर की लाइट बंद कर देंगे", "पड़ोसियों को मैसेज भेजेंगे", "आधिकारिक बिजली बोर्ड ऐप/वेबसाइट से बिल चेक करेंगे"]
+        hi: {
+          q: "'रैंसमवेयर' (Ransomware) क्या है?",
+          options: [
+            "एक मुफ्त सॉफ़्टवेयर जो वीडियो गेम की गति बढ़ाता है",
+            "एक प्रकार का दुर्भावनापूर्ण सॉफ़्टवेयर जो आपकी फ़ाइलों को लॉक/एन्क्रिप्ट करता है और उन्हें अनलॉक करने के लिए पैसे मांगता है",
+            "एक स्कूल उपस्थिति ट्रैकिंग ऐप",
+            "वाई-फाई सिग्नल बढ़ाने के लिए उपयोग किया जाने वाला उपकरण"
+          ]
         },
-        answer: 3 // D
+        answer: 1
       },
       {
-        q: {
-          en: "What is a 'Passkey' or 'Passwordless Login' technology being adopted by tech companies today?",
-          hi: "आजकल इस्तेमाल हो रही 'पासकी (Passkey)' तकनीक क्या है?"
+        en: {
+          q: "Why should you keep an automatic screen lock (PIN, Pattern, Fingerprint, or Face ID) on your smartphone?",
+          options: [
+            "So nobody can open your chats, photos, and banking apps if your phone is lost or left unattended",
+            "To save mobile data when the screen is off",
+            "To make the screen brightness higher",
+            "To block incoming spam SMS automatically"
+          ]
         },
-        options: {
-          en: ["A modern secure login method using your device fingerprint/face lock instead of typing passwords", "A physical metal key for your laptop", "A master password printed on your router", "A password written on paper"],
-          hi: ["पासवर्ड टाइप करने के बजाय आपके फिंगरप्रिंट या फेस लॉक से लॉगिन करने का सुरक्षित तरीका", "लैपटॉप की लोहे की चाबी", "राउटर के पीछे लिखा पासवर्ड", "कागज पर लिखा पासवर्ड"]
+        hi: {
+          q: "आपको अपने स्मार्टफोन पर ऑटोमैटिक स्क्रीन लॉक (पिन, पैटर्न, फिंगरप्रिंट या फेस आईडी) क्यों रखना चाहिए?",
+          options: [
+            "ताकि यदि आपका फोन खो जाए या कहीं छूट जाए तो कोई भी आपकी चैट, फोटो और बैंकिंग ऐप न खोल सके",
+            "स्क्रीन बंद होने पर मोबाइल डेटा बचाने के लिए",
+            "स्क्रीन की चमक बढ़ाने के लिए",
+            "आने वाले स्पैम SMS को स्वचालित रूप से ब्लॉक करने के लिए"
+          ]
         },
-        answer: 0 // A
+        answer: 0
       },
       {
-        q: {
-          en: "Why shouldn't you click on shortened links (e.g. bit.ly/xY3z9) sent by unknown senders in SMS?",
-          hi: "अनजान मैसेज में आए छोटे लिंक (जैसे bit.ly/xxx) पर तुरंत क्लिक क्यों नहीं करना चाहिए?"
+        en: {
+          q: "You see a reel on Instagram promising: 'Invest ₹1,000 in our Telegram trading group and get ₹10,000 back in 2 hours!' What is the truth behind such offers?",
+          options: [
+            "It is a guaranteed way to become rich quickly",
+            "It is a classic social media investment scam designed to steal your money",
+            "It is an official scheme run by the Reserve Bank of India",
+            "Only students under 18 can win this offer"
+          ]
         },
-        options: {
-          en: ["Short links consume more battery", "They hide the real destination address, which could lead to a harmful website", "They slow down screen brightness", "They delete your phone contacts"],
-          hi: ["छोटे लिंक से बैटरी खत्म होती है", "वे असली वेबसाइट का नाम छुपाते हैं, जो किसी खतरनाक या नकली साइट पर ले जा सकता है", "वे स्क्रीन की रोशनी कम करते हैं", "वे कॉन्टैक्ट्स डिलीट करते हैं"]
+        hi: {
+          q: "आप इंस्टाग्राम पर एक रील देखते हैं जो वादा करती है: 'हमारे टेलीग्राम ट्रेडिंग ग्रुप में ₹1,000 निवेश करें और 2 घंटे में ₹10,000 वापस पाएं!' ऐसे ऑफर्स के पीछे क्या सच्चाई है?",
+          options: [
+            "यह जल्दी अमीर बनने का एक गारंटीकृत तरीका है",
+            "यह आपका पैसा चुराने के लिए बनाया गया एक क्लासिक सोशल मीडिया निवेश घोटाला है",
+            "यह भारतीय रिज़र्व बैंक द्वारा चलाई जा रही एक आधिकारिक योजना है",
+            "केवल 18 वर्ष से कम उम्र के छात्र ही इस ऑफर को जीत सकते हैं"
+          ]
         },
-        answer: 1 // B
+        answer: 1
       },
       {
-        q: {
-          en: "In India, which official government portal or helpline number should you contact immediately if you fall victim to financial cyber fraud?",
-          hi: "यदि आप किसी साइबर वित्तीय धोखाधड़ी (Cyber Fraud) के शिकार होते हैं, तो आधिकारिक हेल्पलाइन नंबर या पोर्टल क्या है?"
+        en: {
+          q: "What is the best habit to protect your important school projects, family photos, and documents from accidental deletion or device theft?",
+          options: [
+            "Keep only one copy in your phone's 'Downloads' folder",
+            "Regularly back up important files to a secure cloud drive or external hard drive",
+            "Send all your private files to public Telegram channels",
+            "Never save any files on your device"
+          ]
         },
-        options: {
-          en: ["100 / 112 for general emergency only", "108 for ambulance", "1930 / cybercrime.gov.in", "1800-000-000"],
-          hi: ["100 / 112 केवल सामान्य आपातकाल के लिए", "108 एम्बुलेंस के लिए", "1930 / cybercrime.gov.in", "1800-000-000"]
+        hi: {
+          q: "अपनी महत्वपूर्ण स्कूल परियोजनाओं, पारिवारिक तस्वीरों और दस्तावेजों को गलती से डिलीट होने या डिवाइस चोरी होने से बचाने के लिए सबसे अच्छी आदत क्या है?",
+          options: [
+            "अपने फोन के 'डाउनलोड' फ़ोल्डर में केवल एक प्रति रखें",
+            "नियमित रूप से महत्वपूर्ण फ़ाइलों का सुरक्षित क्लाउड ड्राइव या बाहरी हार्ड ड्राइव पर बैकअप लें",
+            "अपनी सभी निजी फ़ाइलें सार्वजनिक टेलीग्राम चैनलों पर भेजें",
+            "अपने डिवाइस पर कभी भी कोई फ़ाइल सेव न करें"
+          ]
         },
-        answer: 2 // C
+        answer: 1
       }
     ];
 
     // ==========================================
-    // APP STATE
+    // 4. QUIZ STATE & LOGIC
     // ==========================================
-    let participantName = "";
-    let activeQuestions = [];
+    let selectedQuestions = [];
     let currentQuestionIndex = 0;
     let userScore = 0;
+    let selectedOptionIndex = null;
+    let participantName = "";
 
-    // DOM Elements
-    const screenStart = document.getElementById('screen-start');
-    const screenQuiz = document.getElementById('screen-quiz');
-    const screenResult = document.getElementById('screen-result');
-
-    const questionText = document.getElementById('question-text');
-    const optionsContainer = document.getElementById('options-container');
-    const quizProgressText = document.getElementById('quiz-progress-text');
-    const quizProgressBar = document.getElementById('quiz-progress-bar');
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // ==========================================
-    // LANGUAGE SWITCHER LOGIC
-    // ==========================================
-    function changeLanguage(lang) {
+    function setLanguage(lang) {
       currentLang = lang;
-      const t = i18n[currentLang];
+      const t = uiText[lang];
 
-      document.getElementById('ui-title').textContent = t.title;
-      document.getElementById('ui-subtitle').textContent = t.subtitle;
-      document.getElementById('ui-lang-label').textContent = t.langLabel;
-      document.getElementById('ui-instructions-title').textContent = t.instructionsTitle;
-      document.getElementById('ui-inst-1').innerHTML = t.inst1;
-      document.getElementById('ui-inst-2').innerHTML = t.inst2;
-      document.getElementById('ui-inst-3').innerHTML = t.inst3;
-      document.getElementById('ui-name-label').childNodes[0].textContent = t.nameLabel + " ";
-      document.getElementById('participant-name').placeholder = t.namePlaceholder;
-      document.getElementById('ui-start-btn').textContent = t.startBtn;
-      document.getElementById('ui-badge').textContent = t.badge;
-      document.getElementById('ui-download-btn').textContent = t.downloadBtn;
-      document.getElementById('ui-retry-btn').textContent = t.retryBtn;
+      // Toggle buttons styling
+      const btnEn = document.getElementById("btn-lang-en");
+      const btnHi = document.getElementById("btn-lang-hi");
+      if (lang === "en") {
+        btnEn.className = "px-3 py-1 rounded-md text-xs font-semibold transition bg-[#1d4ed8] text-white";
+        btnHi.className = "px-3 py-1 rounded-md text-xs font-semibold transition text-blue-200 hover:text-white";
+      } else {
+        btnHi.className = "px-3 py-1 rounded-md text-xs font-semibold transition bg-[#1d4ed8] text-white";
+        btnEn.className = "px-3 py-1 rounded-md text-xs font-semibold transition text-blue-200 hover:text-white";
+      }
 
-      // Update question text if currently on quiz screen
-      if (!screenQuiz.classList.contains('hidden') && activeQuestions.length > 0) {
+      // Update Welcome Screen Texts
+      document.getElementById("header-title").textContent = t.headerTitle;
+      document.getElementById("badge-subtitle").textContent = t.badgeSubtitle;
+      document.getElementById("welcome-heading").textContent = t.welcomeHeading;
+      document.getElementById("welcome-desc").textContent = t.welcomeDesc;
+      document.getElementById("stat-questions").textContent = t.statQuestions;
+      document.getElementById("stat-pass").textContent = t.statPass;
+      document.getElementById("stat-cert").textContent = t.statCert;
+      document.getElementById("label-name").textContent = t.labelName;
+      document.getElementById("participant-name").placeholder = t.placeholderName;
+      document.getElementById("name-error").textContent = t.nameError;
+      document.getElementById("btn-start").textContent = t.btnStart;
+      document.getElementById("btn-download-text").textContent = t.btnDownload;
+      document.getElementById("btn-restart").textContent = t.btnRestart;
+
+      // Update active quiz screen if visible
+      if (!document.getElementById("screen-quiz").classList.contains("hidden")) {
         renderQuestion();
+      }
+      // Update result screen if visible
+      if (!document.getElementById("screen-result").classList.contains("hidden")) {
+        showResultScreen();
       }
     }
 
-    // ==========================================
-    // LOGIC: START & SHUFFLE
-    // ==========================================
-    function handleStartQuiz(e) {
-      e.preventDefault();
-      const input = document.getElementById('participant-name');
-      participantName = input.value.trim();
+    function clearNameError() {
+      document.getElementById("name-error").classList.add("hidden");
+    }
 
-      if (!participantName) return;
+    function startQuiz() {
+      const nameInput = document.getElementById("participant-name");
+      const trimmedName = nameInput.value.trim();
 
-      // Pick 10 random questions from the 30-question bank
-      activeQuestions = [...questionBank]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 10);
+      if (!trimmedName) {
+        const errEl = document.getElementById("name-error");
+        errEl.textContent = uiText[currentLang].nameError;
+        errEl.classList.remove("hidden");
+        nameInput.focus();
+        return;
+      }
 
+      participantName = trimmedName;
       currentQuestionIndex = 0;
       userScore = 0;
+      selectedOptionIndex = null;
 
-      screenStart.classList.add('hidden');
-      screenQuiz.classList.remove('hidden');
-      screenQuiz.classList.add('fade-in');
+      // Pick 10 random questions from 30-question bank
+      const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
+      selectedQuestions = shuffled.slice(0, 10);
+
+      document.getElementById("screen-welcome").classList.add("hidden");
+      document.getElementById("screen-result").classList.add("hidden");
+      document.getElementById("screen-quiz").classList.remove("hidden");
 
       renderQuestion();
     }
 
     function renderQuestion() {
-      const qData = activeQuestions[currentQuestionIndex];
-      const t = i18n[currentLang];
-      
-      quizProgressText.textContent = t.progressText(currentQuestionIndex + 1, 10);
-      const progressPercent = ((currentQuestionIndex + 1) / 10) * 100;
-      quizProgressBar.style.width = `${progressPercent}%`;
+      const t = uiText[currentLang];
+      const qObj = selectedQuestions[currentQuestionIndex];
+      const langData = qObj[currentLang];
 
-      questionText.textContent = qData.q[currentLang];
-      optionsContainer.innerHTML = '';
+      document.getElementById("progress-label").textContent = t.progressLabel(currentQuestionIndex + 1, 10);
+      document.getElementById("progress-bar").style.width = `${((currentQuestionIndex + 1) / 10) * 100}%`;
+      document.getElementById("question-text").textContent = langData.q;
 
-      qData.options[currentLang].forEach((optionText, idx) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = `w-full text-left p-3.5 sm:p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 active:bg-blue-100 transition flex items-start gap-3 group cursor-pointer text-sm sm:text-base`;
-        
+      const optionsContainer = document.getElementById("options-list");
+      optionsContainer.innerHTML = "";
+
+      const letters = ["A", "B", "C", "D"];
+      langData.options.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        const isSelected = selectedOptionIndex === idx;
+
+        btn.className = `option-card w-full text-left p-4 rounded-xl border-2 flex items-center gap-3.5 cursor-pointer ${
+          isSelected
+            ? "border-[#1d4ed8] bg-blue-50 shadow-sm"
+            : "border-slate-200 bg-white"
+        }`;
+
         btn.innerHTML = `
-          <span class="w-6 h-6 rounded-full bg-slate-100 group-hover:bg-blue-600 group-hover:text-white text-slate-500 font-semibold text-xs flex items-center justify-center shrink-0 transition-colors mt-0.5">
-            ${String.fromCharCode(65 + idx)}
-          </span>
-          <span class="text-slate-700 group-hover:text-slate-900 font-medium">${optionText}</span>
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shrink-0 ${
+            isSelected
+              ? "bg-[#1d4ed8] text-white"
+              : "bg-slate-100 text-[#0a2351]"
+          }">${letters[idx]}</span>
+          <span class="text-sm sm:text-base font-medium text-slate-800">${optText}</span>
         `;
 
-        btn.onclick = () => handleAnswerSelect(idx);
+        btn.onclick = () => selectOption(idx);
         optionsContainer.appendChild(btn);
       });
+
+      const nextBtn = document.getElementById("btn-next");
+      nextBtn.disabled = selectedOptionIndex === null;
+      nextBtn.textContent = currentQuestionIndex === 9 ? t.btnSubmit : t.btnNext;
     }
 
-    function handleAnswerSelect(selectedIndex) {
-      const currentQ = activeQuestions[currentQuestionIndex];
-      if (selectedIndex === currentQ.answer) {
+    function selectOption(idx) {
+      selectedOptionIndex = idx;
+      renderQuestion();
+    }
+
+    function nextQuestion() {
+      if (selectedOptionIndex === null) return;
+
+      if (selectedOptionIndex === selectedQuestions[currentQuestionIndex].answer) {
         userScore++;
       }
 
+      selectedOptionIndex = null;
       currentQuestionIndex++;
 
-      if (currentQuestionIndex < activeQuestions.length) {
+      if (currentQuestionIndex < 10) {
         renderQuestion();
       } else {
-        finishQuiz();
+        showResultScreen();
       }
     }
 
-    // ==========================================
-    // LOGIC: FINISH & DUAL CERTIFICATE SELECTION
-    // ==========================================
-    function finishQuiz() {
-      screenQuiz.classList.add('hidden');
-      screenResult.classList.remove('hidden');
+    function showResultScreen() {
+      document.getElementById("screen-quiz").classList.add("hidden");
+      document.getElementById("screen-result").classList.remove("hidden");
 
-      const t = i18n[currentLang];
-      const resultTitle = document.getElementById('result-title');
-      const resultSummaryText = document.getElementById('result-summary-text');
-      const resultIconContainer = document.getElementById('result-icon-container');
+      const t = uiText[currentLang];
+      const percentage = Math.round((userScore / 10) * 100);
+      const isAchievement = percentage >= 80;
 
-      // Check passing score (≥80% = 8/10)
-      const isAchievement = userScore >= 8;
+      const pillEl = document.getElementById("result-badge-pill");
+      const headingEl = document.getElementById("result-heading");
+      const summaryEl = document.getElementById("result-summary");
 
       if (isAchievement) {
-        resultTitle.textContent = t.passTitle;
-        resultSummaryText.innerHTML = t.passSummary(participantName, userScore);
-        resultIconContainer.className = "inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mb-1";
-        resultIconContainer.innerHTML = `<i class="fa-solid fa-award text-3xl"></i>`;
+        pillEl.textContent = t.achievementPill;
+        pillEl.className = "inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-2 bg-amber-100 text-[#0a2351] border border-[#d4af37]";
+        headingEl.textContent = t.resultHeadingWin;
       } else {
-        resultTitle.textContent = t.partTitle;
-        resultSummaryText.innerHTML = t.partSummary(participantName, userScore);
-        resultIconContainer.className = "inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-600 mb-1";
-        resultIconContainer.innerHTML = `<i class="fa-solid fa-certificate text-3xl"></i>`;
+        pillEl.textContent = t.participationPill;
+        pillEl.className = "inline-block px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-2 bg-blue-100 text-[#1d4ed8] border border-blue-200";
+        headingEl.textContent = t.resultHeadingPart;
       }
 
-      renderCertificateCanvas(isAchievement);
-    }
+      summaryEl.textContent = t.resultSummary(participantName, userScore, 10, percentage);
 
-    function restartQuiz() {
-      screenResult.classList.add('hidden');
-      screenStart.classList.remove('hidden');
-      screenStart.classList.add('fade-in');
-      document.getElementById('participant-name').value = '';
+      drawCertificate();
     }
 
     // ==========================================
-    // CANVAS CERTIFICATE GENERATOR (2 STYLES)
+    // 5. CERTIFICATE CANVAS GENERATOR (Blue & White + Local Logo)
     // ==========================================
-    function renderCertificateCanvas(isAchievement) {
-      const canvas = document.getElementById('certCanvas');
-      const ctx = canvas.getContext('2d');
-      const width = canvas.width;
-      const height = canvas.height;
-      const t = i18n[currentLang];
+    function drawCertificate() {
+      const canvas = document.getElementById("certificate-canvas");
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width;   // 1200
+      const H = canvas.height;  // 850
 
-      // Primary Color Palette based on Certificate Type
-      const primaryColor = isAchievement ? '#065f46' : '#1e3a8a';  // Emerald vs Navy
-      const accentColor  = isAchievement ? '#10b981' : '#3b82f6';  // Bright Green vs Bright Blue
-      const badgeBgColor = isAchievement ? '#059669' : '#2563eb';  // Seal background
+      const percentage = Math.round((userScore / 10) * 100);
+      const isAchievement = percentage >= 80;
 
-      // 1. Background
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, width, height);
+      // Palette: Royal Navy Blue, Vibrant Blue, Gold & Crisp White
+      const navy = "#0a2351";
+      const royalBlue = "#1d4ed8";
+      const gold = "#d4af37";
+      const softBlueBg = "#f4f8ff";
 
-      // Outer Border
-      ctx.strokeStyle = primaryColor;
-      ctx.lineWidth = 12;
-      ctx.strokeRect(16, 16, width - 32, height - 32);
+      // 1. Clean White & Soft Blue Background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, W, H);
 
-      // Inner Accent Border
-      ctx.strokeStyle = accentColor;
-      ctx.lineWidth = 2;
-      ctx.strokeRect(28, 28, width - 56, height - 56);
+      const bgGrad = ctx.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, 700);
+      bgGrad.addColorStop(0, "#ffffff");
+      bgGrad.addColorStop(1, softBlueBg);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(24, 24, W - 48, H - 48);
 
-      // Decorative Corner Blocks
-      const cornerSize = 28;
-      ctx.fillStyle = primaryColor;
-      ctx.fillRect(28, 28, cornerSize, cornerSize);
-      ctx.fillRect(width - 28 - cornerSize, 28, cornerSize, cornerSize);
-      ctx.fillRect(28, height - 28 - cornerSize, cornerSize, cornerSize);
-      ctx.fillRect(width - 28 - cornerSize, height - 28 - cornerSize, cornerSize, cornerSize);
+      // 2. Outer Thick Navy Frame & Inner Gold Accent Frame
+      ctx.strokeStyle = navy;
+      ctx.lineWidth = 18;
+      ctx.strokeRect(18, 18, W - 36, H - 36);
 
-      // 2. Icon / Emblem
-      ctx.fillStyle = accentColor;
-      ctx.font = '32px "Font Awesome 6 Free"';
-      ctx.textAlign = 'center';
-      ctx.fillText(isAchievement ? '🏆' : '📜', width / 2, 85);
+      ctx.strokeStyle = gold;
+      ctx.lineWidth = 3.5;
+      ctx.strokeRect(36, 36, W - 72, H - 72);
 
-      // 3. Certificate Title
-      ctx.fillStyle = primaryColor;
-      ctx.font = 'bold 26px "Playfair Display", "Hind", Georgia, serif';
-      const certTitleText = isAchievement ? t.certAchievementTitle : t.certParticipationTitle;
-      ctx.fillText(certTitleText, width / 2, 130);
-
-      // Award Subtitle
-      ctx.fillStyle = '#64748b';
-      ctx.font = '15px "Inter", "Hind", sans-serif';
-      ctx.fillText(t.certAwardedTo, width / 2, 175);
-
-      // 4. Participant Name
-      ctx.fillStyle = '#0f172a';
-      ctx.font = 'bold 34px "Playfair Display", "Hind", Georgia, serif';
-      ctx.fillText(participantName, width / 2, 230);
-
-      // Underline
-      ctx.strokeStyle = '#cbd5e1';
+      ctx.strokeStyle = royalBlue;
       ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(width / 2 - 180, 250);
-      ctx.lineTo(width / 2 + 180, 250);
-      ctx.stroke();
+      ctx.strokeRect(44, 44, W - 88, H - 88);
 
-      // 5. Description Text
-      ctx.fillStyle = '#334155';
-      ctx.font = '14px "Inter", "Hind", sans-serif';
-      const descText = isAchievement ? t.certAchievementDesc(userScore) : t.certParticipationDesc(userScore);
-      
-      // Multi-line text wrapper for canvas
-      wrapCanvasText(ctx, descText, width / 2, 290, width - 160, 22);
+      // Corner Ornamental Triangles (Navy & Gold)
+      const drawCorner = (x, y, dx, dy) => {
+        ctx.fillStyle = navy;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + dx * 55, y);
+        ctx.lineTo(x, y + dy * 55);
+        ctx.closePath();
+        ctx.fill();
 
-      // 6. Security Seal / Badge
-      const badgeX = width / 2;
-      const badgeY = 405;
-      
+        ctx.fillStyle = gold;
+        ctx.beginPath();
+        ctx.moveTo(x + dx * 12, y + dy * 12);
+        ctx.lineTo(x + dx * 42, y + dy * 12);
+        ctx.lineTo(x + dx * 12, y + dy * 42);
+        ctx.closePath();
+        ctx.fill();
+      };
+      drawCorner(44, 44, 1, 1);
+      drawCorner(W - 44, 44, -1, 1);
+      drawCorner(44, H - 44, 1, -1);
+      drawCorner(W - 44, H - 44, -1, -1);
+
+      // 3. Top Center School Logo (from ./logo.jpg)
+      const logoCenterX = W / 2;
+      const logoCenterY = 122;
+      const logoRadius = 56;
+
+      // Circular white backing + gold border
+      ctx.save();
       ctx.beginPath();
-      ctx.arc(badgeX, badgeY, 36, 0, Math.PI * 2);
-      ctx.fillStyle = badgeBgColor;
+      ctx.arc(logoCenterX, logoCenterY, logoRadius + 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
       ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(badgeX, badgeY, 30, 0, Math.PI * 2);
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = gold;
       ctx.stroke();
 
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 10px "Inter", "Hind", sans-serif';
-      const badgeLabel = isAchievement ? t.certPassedBadge : t.certPartBadge;
-      ctx.fillText(badgeLabel, badgeX, badgeY + 4);
+      if (loadedLogoImg && loadedLogoImg.complete && loadedLogoImg.naturalWidth > 0) {
+        ctx.beginPath();
+        ctx.arc(logoCenterX, logoCenterY, logoRadius, 0, Math.PI * 2);
+        ctx.clip();
 
-      // 7. Date & Signature Lines
-      const dateStr = new Date().toLocaleDateString(currentLang === 'hi' ? 'hi-IN' : 'en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+        // Draw image preserving aspect ratio inside circle
+        const imgW = loadedLogoImg.naturalWidth;
+        const imgH = loadedLogoImg.naturalHeight;
+        const scale = Math.max((logoRadius * 2) / imgW, (logoRadius * 2) / imgH);
+        const drawW = imgW * scale;
+        const drawH = imgH * scale;
+        ctx.drawImage(
+          loadedLogoImg,
+          logoCenterX - drawW / 2,
+          logoCenterY - drawH / 2,
+          drawW,
+          drawH
+        );
+      } else {
+        // Fallback Emblem if logo.jpg isn't loaded yet
+        ctx.beginPath();
+        ctx.arc(logoCenterX, logoCenterY, logoRadius - 2, 0, Math.PI * 2);
+        ctx.fillStyle = navy;
+        ctx.fill();
+        ctx.fillStyle = gold;
+        ctx.font = "bold 28px Cinzel, serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("SHS", logoCenterX, logoCenterY);
+      }
+      ctx.restore();
+
+      // 4. School Name & Certificate Title
+      ctx.textAlign = "center";
+      ctx.textBaseline = "alphabetic";
+
+      ctx.fillStyle = navy;
+      ctx.font = "bold 22px Cinzel, serif";
+      ctx.fillText("SACRED HEART SCHOOL", W / 2, 212);
+
+      ctx.fillStyle = isAchievement ? navy : royalBlue;
+      ctx.font = "800 44px Cinzel, serif";
+      const mainCertTitle = isAchievement
+        ? "CERTIFICATE OF ACHIEVEMENT"
+        : "CERTIFICATE OF PARTICIPATION";
+      ctx.fillText(mainCertTitle, W / 2, 266);
+
+      // Decorative Gold Divider under Title
+      ctx.strokeStyle = gold;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - 210, 284);
+      ctx.lineTo(W / 2 + 210, 284);
+      ctx.stroke();
+
+      // 5. Presented To & Participant Name
+      ctx.fillStyle = "#475569";
+      ctx.font = "500 21px Inter, sans-serif";
+      ctx.fillText("This certificate is proudly awarded to", W / 2, 330);
+
+      // Participant Name
+      ctx.fillStyle = navy;
+      ctx.font = "bold 48px Georgia, serif";
+      ctx.fillText(participantName, W / 2, 392);
+
+      // Underline beneath Participant Name
+      const nameWidth = Math.min(Math.max(ctx.measureText(participantName).width + 90, 340), 760);
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - nameWidth / 2, 408);
+      ctx.lineTo(W / 2 + nameWidth / 2, 408);
+      ctx.stroke();
+
+      // 6. Achievement / Participation Description Text
+      ctx.fillStyle = "#334155";
+      ctx.font = "500 20px Inter, sans-serif";
+      if (isAchievement) {
+        ctx.fillText(
+          `for demonstrating exceptional awareness in Data Privacy & Digital Safety`,
+          W / 2,
+          452
+        );
+        ctx.fillStyle = royalBlue;
+        ctx.font = "bold 21px Inter, sans-serif";
+        ctx.fillText(
+          `with an outstanding score of ${userScore}/10 (${percentage}%).`,
+          W / 2,
+          484
+        );
+      } else {
+        ctx.fillText(
+          `for actively participating in the Data Privacy & Digital Safety Awareness Quiz`,
+          W / 2,
+          452
+        );
+        ctx.fillStyle = royalBlue;
+        ctx.font = "bold 21px Inter, sans-serif";
+        ctx.fillText(
+          `and contributing towards a safer digital community (Score: ${userScore}/10 - ${percentage}%).`,
+          W / 2,
+          484
+        );
+      }
+
+      // 7. Large Attractive Rosette Seal Badge (Bottom Center)
+      const badgeX = W / 2;
+      const badgeY = 620;
+      const outerR = 68;
+      const innerR = 52;
+
+      // Two Hanging Ribbons behind the rosette
+      const drawRibbon = (angleOffset, xShift) => {
+        ctx.save();
+        ctx.translate(badgeX + xShift, badgeY + 46);
+        ctx.rotate(angleOffset);
+        ctx.fillStyle = navy;
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(-18, 0);
+        ctx.lineTo(18, 0);
+        ctx.lineTo(22, 82);
+        ctx.lineTo(0, 66);
+        ctx.lineTo(-22, 82);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      };
+      drawRibbon(0.24, -22);
+      drawRibbon(-0.24, 22);
+
+      // 24-Point Starburst Scalloped Outer Rosette
+      const spikes = 24;
+      ctx.beginPath();
+      for (let i = 0; i < spikes * 2; i++) {
+        const r = i % 2 === 0 ? outerR : outerR - 8;
+        const angle = (i * Math.PI) / spikes;
+        const x = badgeX + Math.cos(angle) * r;
+        const y = badgeY + Math.sin(angle) * r;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = isAchievement ? gold : royalBlue;
+      ctx.fill();
+      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = navy;
+      ctx.stroke();
+
+      // Inner Navy Medallion Circle
+      ctx.beginPath();
+      ctx.arc(badgeX, badgeY, innerR, 0, Math.PI * 2);
+      ctx.fillStyle = navy;
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#ffffff";
+      ctx.stroke();
+
+      // Inner Gold Ring
+      ctx.beginPath();
+      ctx.arc(badgeX, badgeY, innerR - 6, 0, Math.PI * 2);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = gold;
+      ctx.stroke();
+
+      // Badge Text & Stars
+      ctx.fillStyle = gold;
+      ctx.font = "bold 14px Inter, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("★  ★  ★", badgeX, badgeY - 19);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 11px Inter, sans-serif";
+      ctx.fillText("CERTIFICATE OF", badgeX, badgeY - 1);
+
+      ctx.fillStyle = isAchievement ? gold : "#93c5fd";
+      ctx.font = "800 13px Inter, sans-serif";
+      ctx.fillText(isAchievement ? "ACHIEVEMENT" : "PARTICIPATION", badgeX, badgeY + 16);
+
+      ctx.fillStyle = gold;
+      ctx.font = "bold 13px Inter, sans-serif";
+      ctx.fillText("★", badgeX, badgeY + 34);
+
+      // 8. Bottom Left & Right Blocks (Labels UP, Date & Sacred Heart School DOWN)
+      const todayStr = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
       });
 
-      // Left: Date
-      ctx.fillStyle = '#475569';
-      ctx.font = '13px "Inter", "Hind", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(`${t.certIssuedOn} ${dateStr}`, 180, 480);
+      const leftX = 250;
+      const rightX = W - 250;
+      const labelY = 668;
+      const lineY = 684;
+      const valueY = 716;
+
+      // Left Side: Date of Issue (Up) -> Date (Down)
+      ctx.fillStyle = "#64748b";
+      ctx.font = "600 16px Inter, sans-serif";
+      ctx.fillText("Date of Issue", leftX, labelY);
+
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(100, 460);
-      ctx.lineTo(260, 460);
-      ctx.strokeStyle = '#94a3b8';
-      ctx.lineWidth = 1;
+      ctx.moveTo(leftX - 130, lineY);
+      ctx.lineTo(leftX + 130, lineY);
       ctx.stroke();
 
-      // Right: Verification Signature
-      ctx.fillText(t.certVerified, width - 180, 480);
-      ctx.font = 'italic 16px "Playfair Display", serif';
-      ctx.fillStyle = primaryColor;
-      ctx.fillText('Digital Safety Cell', width - 180, 450);
+      ctx.fillStyle = navy;
+      ctx.font = "bold 20px Inter, sans-serif";
+      ctx.fillText(todayStr, leftX, valueY);
+
+      // Right Side: Issued By (Up) -> Sacred Heart School (Down)
+      ctx.fillStyle = "#64748b";
+      ctx.font = "600 16px Inter, sans-serif";
+      ctx.fillText("Issued By", rightX, labelY);
+
+      ctx.strokeStyle = "#94a3b8";
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(width - 260, 460);
-      ctx.lineTo(width - 100, 460);
-      ctx.strokeStyle = '#94a3b8';
-      ctx.lineWidth = 1;
+      ctx.moveTo(rightX - 140, lineY);
+      ctx.lineTo(rightX + 140, lineY);
       ctx.stroke();
-    }
 
-    // Helper: Wrap long text on HTML Canvas
-    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(' ');
-      let line = '';
-      let currentY = y;
-
-      for (let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + ' ';
-        const metrics = ctx.measureText(testLine);
-        const testWidth = metrics.width;
-        
-        if (testWidth > maxWidth && n > 0) {
-          ctx.fillText(line, x, currentY);
-          line = words[n] + ' ';
-          currentY += lineHeight;
-        } else {
-          line = testLine;
-        }
-      }
-      ctx.fillText(line, x, currentY);
+      ctx.fillStyle = navy;
+      ctx.font = "bold 21px Cinzel, serif";
+      ctx.fillText("Sacred Heart School", rightX, valueY);
     }
 
     function downloadCertificate() {
-      const canvas = document.getElementById('certCanvas');
-      const sanitizedName = participantName.replace(/[^a-zA-Z0-9\u0900-\u097F]/g, '_');
-      const typeLabel = userScore >= 8 ? 'Achievement' : 'Participation';
-      
-      const link = document.createElement('a');
-      link.download = `Data_Privacy_Certificate_${typeLabel}_${sanitizedName}.png`;
-      link.href = canvas.toDataURL('image/png');
+      const canvas = document.getElementById("certificate-canvas");
+      const percentage = Math.round((userScore / 10) * 100);
+      const certType = percentage >= 80 ? "Achievement" : "Participation";
+      const safeName = participantName.replace(/[^a-zA-Z0-9_-]/g, "_");
+
+      const link = document.createElement("a");
+      link.download = `Sacred_Heart_School_${certType}_Certificate_${safeName}.png`;
+      link.href = canvas.toDataURL("image/png");
       link.click();
+    }
+
+    function restartQuiz() {
+      document.getElementById("screen-result").classList.add("hidden");
+      document.getElementById("screen-quiz").classList.add("hidden");
+      document.getElementById("screen-welcome").classList.remove("hidden");
     }
   </script>
 </body>
